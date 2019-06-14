@@ -1,5 +1,6 @@
 from django.db import models
 from django.utils.translation import gettext as _
+from languages.fields import LanguageField
 
 
 class Country(models.Model):
@@ -43,6 +44,8 @@ class Initiative(models.Model):
     level = models.SmallIntegerField(_("Initiative level"))
     country = models.ForeignKey(Country, on_delete=models.SET_NULL, null=True)
     city = models.ForeignKey(City, on_delete=models.SET_NULL, null=True)
+
+    language = LanguageField()
 
     title = models.CharField(max_length=255)
     problem = models.TextField()
