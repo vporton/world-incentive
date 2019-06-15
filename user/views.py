@@ -3,7 +3,6 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.views.generic import View
 from django.contrib.auth import login, authenticate
 
-from project.models import Project
 from user.forms import MyUserCreationForm, AccountForm
 from user.models import User
 
@@ -40,6 +39,4 @@ class Account(LoginRequiredMixin, View):
 class ViewProfile(View):
     def get(self, request, user_pk):
         user = get_object_or_404(User, pk=user_pk)
-        projects = Project.objects.filter(user=user_pk).order_by('-pk').only('pk', 'disabled')
-        versions = [p.last_version() for p in projects]
-        return render(request, 'user/profile.html', {'user': user, 'versions': versions})
+        return render(request, 'user/profile.html', {'user': user})

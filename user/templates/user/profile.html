@@ -9,19 +9,6 @@ textarea { width: 100% }
 
 {% block content %}
 
-<h2>User's projects</h2>
-
-{% if versions %}
-<ul>
-{% for v in versions %}
-    <li><a href="{% url 'project:view' v.project.pk %}">{{v.title}}</a>
-        {% if v.project.disabled %}(disabled){% endif %}</li>
-{% endfor %}
-</ul>
-{% else %}
-<p>No projects</p>
-{% endif %}
-
 <h2>User info</h2>
 
 <dl>

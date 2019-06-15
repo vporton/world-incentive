@@ -1,1 +1,6 @@
 django-language-field
+django-bootstrap3
+django-recaptcha2
+django-countries
+django-googlytics==0.2.1
+django-defender
