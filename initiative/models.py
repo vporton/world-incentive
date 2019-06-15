@@ -3,19 +3,6 @@ from django.utils.translation import gettext as _
 from languages.fields import LanguageField
 
 
-class Country(models.Model):
-    name = models.CharField(unique=True, max_length=255)
-
-
-class City(models.Model):
-    name = models.CharField(max_length=255)
-    country = models.ForeignKey(Country, on_delete=models.SET_NULL, null=True)
-
-    constraints = [
-        models.UniqueConstraint(fields=['name', 'country'], name='city_unique')
-    ]
-
-
 class InitiativeCategory(models.Model):
     name = models.CharField(max_length=255)
 
@@ -31,19 +18,12 @@ class InitiativeFile(models.Model):
 
 
 class Initiative(models.Model):
-    LEVEL_WORLD = 0
-    # LEVEL_UNION = 1
-    LEVEL_COUNTRY = 2
-    # LEVEL_REGION = 3
-    LEVEL_CITY = 4
-    # LEVEL_MUNICIPAL = 5
-
     created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
 
-    level = models.SmallIntegerField(_("Initiative level"))
-    country = models.ForeignKey(Country, on_delete=models.SET_NULL, null=True)
-    city = models.ForeignKey(City, on_delete=models.SET_NULL, null=True)
+    level = models.SmallIntegerField(_("Initiative level"))  # core.RegionLevel
+    country = models.ForeignKey('core.Country', on_delete=models.SET_NULL, null=True)
+    city = models.ForeignKey('core.City', on_delete=models.SET_NULL, null=True)
 
     language = LanguageField()
 

@@ -38,7 +38,10 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'languages',
-    'incentive.apps.IncentiveConfig',
+    'core',
+    'user',
+    # 'initiative',
+    'initiative.apps.IncentiveConfig',
 ]
 
 MIDDLEWARE = [
@@ -50,6 +53,8 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
+
+AUTH_USER_MODEL = 'user.User'
 
 ROOT_URLCONF = 'world_incentive.urls'
 
@@ -121,3 +126,13 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/2.2/howto/static-files/
 
 STATIC_URL = '/static/'
+
+GOOGLE_ANALYTICS_KEY = ''
+# GOOGLE_ANALYTICS_IGNORE_ADMIN = True # bug in django-googlytics==0.2.1
+
+SITE_URL = 'http://127.0.0.1:8000'
+
+try:
+    from local_settings import *
+except ImportError:
+    pass

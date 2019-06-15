@@ -12,7 +12,8 @@ class MyUserCreationForm(UserCreationForm):
     captcha = ReCaptchaField(widget=ReCaptchaWidget())
     class Meta:
         model = User
-        fields = ['username',
+        fields = ['country',
+                  'username',
                   'password1',
                   'password2',
                   'email',

@@ -4,7 +4,7 @@ from django.conf import settings
 from django.core.management.base import BaseCommand
 from django.db import transaction
 
-from incentive.models import *
+from initiative.models import *
 
 
 class Command(BaseCommand):
