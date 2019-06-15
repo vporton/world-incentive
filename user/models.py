@@ -1,10 +1,11 @@
 import django.contrib.auth.models
 from django.db import models
 
+import core
+
 
 class User(django.contrib.auth.models.AbstractUser):
-    country = models.ForeignKey('cities.Country', on_delete=models.SET_NULL, null=True)
-    city = models.ForeignKey('cities.City', on_delete=models.SET_NULL, null=True)
+    place = core.models.PlaceField()
 
     ssh_pubkey = models.TextField("SSH public key", help_text="Leave empty if not sure", blank=True)
     pgp_pubkey = models.TextField("PGP (mail) public key", help_text="Leave empty if not sure", blank=True)
