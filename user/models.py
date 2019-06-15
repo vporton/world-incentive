@@ -3,8 +3,8 @@ from django.db import models
 
 
 class User(django.contrib.auth.models.AbstractUser):
-    country = models.ForeignKey('core.Country', on_delete=models.SET_NULL, null=True)
-    city = models.ForeignKey('core.City', on_delete=models.SET_NULL, null=True)
+    country = models.ForeignKey('cities.Country', on_delete=models.SET_NULL, null=True)
+    city = models.ForeignKey('cities.City', on_delete=models.SET_NULL, null=True)
 
     ssh_pubkey = models.TextField("SSH public key", help_text="Leave empty if not sure", blank=True)
     pgp_pubkey = models.TextField("PGP (mail) public key", help_text="Leave empty if not sure", blank=True)

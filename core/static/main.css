@@ -1,0 +1,38 @@
+.mynavbar {
+    background: #d7ffd7
+}
+
+/*
+@media (max-width: 600px) {
+  .mynavbar {
+    background-color: white;
+  }
+}
+*/
+
+button[disabled], input[type=button][disabled] { color: gray }
+
+.my-radio-widget { display: inline-block; margin-bottom: 0; padding-bottom: 0 }
+
+/*
+.popup {
+    background: white;
+    max-width: 20em;
+    border: 1px solid black;
+    padding: 0.5ex;
+}
+
+.popup-link {
+    text-decoration-style: dashed ! important;
+    text-decoration-line: underline;
+}
+*/
+
+.required th label::after {
+    content: "*";
+}
+.errorlist { color: red }
+/*td, th { padding: 2px; border: 1px solid #eee }*/
+.layout td, .layout th { padding: 0; border: none }
+input[type=text], input[type=url], input[type=number] { width: 100% }
+form td > ul { list-style: none; padding-left: 0px }

@@ -1,4 +1,4 @@
-{% extends "main/base.html" %}
+{% extends "core/base.html" %}
 
 {% block title %}User registration{% endblock %}
 {% block header %}User registration{% endblock %}
@@ -8,7 +8,7 @@
 
 {% block content %}
 
-{% include 'main/errors.html' %}
+{% include 'core/errors.html' %}
 
 <p>Already have an account? <a href="{% url 'login' %}">Login</a></p>
 

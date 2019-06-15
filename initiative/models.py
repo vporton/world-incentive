@@ -22,8 +22,8 @@ class Initiative(models.Model):
     updated = models.DateTimeField(auto_now=True)
 
     level = models.SmallIntegerField(_("Initiative level"))  # core.RegionLevel
-    country = models.ForeignKey('core.Country', on_delete=models.SET_NULL, null=True)
-    city = models.ForeignKey('core.City', on_delete=models.SET_NULL, null=True)
+    country = models.ForeignKey('cities.Country', on_delete=models.SET_NULL, null=True)
+    city = models.ForeignKey('cities.City', on_delete=models.SET_NULL, null=True)
 
     language = LanguageField()
 

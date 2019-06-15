@@ -37,7 +37,13 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'django.contrib.gis',
+    'bootstrap3',
+    'snowpenguin.django.recaptcha2',
+    'googlytics',
+    'defender',
     'languages',
+    'cities',
     'core',
     'user',
     # 'initiative',
@@ -55,6 +61,9 @@ MIDDLEWARE = [
 ]
 
 AUTH_USER_MODEL = 'user.User'
+
+RECAPTCHA_PRIVATE_KEY = '6LdcoU0UAAAAAAoOc4sd4sdLgKAdmMPeIPR0oIFW'
+RECAPTCHA_PUBLIC_KEY = '6LdcoU0UAAAAAF6E2X9cWbd1vuZ4Ej_dLWgLWpoK'
 
 ROOT_URLCONF = 'world_incentive.urls'
 

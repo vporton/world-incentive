@@ -1,3 +1,7 @@
+from django import views
 from django.shortcuts import render
 
-# Create your views here.
+
+class CitiesAjaxView(views.View):
+    def get(self, request, country_id):
+        pass  # cities = City
