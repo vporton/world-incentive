@@ -1,0 +1,25 @@
+{% extends "main/base.html" %}
+
+{% block title %}User account{% endblock %}
+{% block header %}User account{% endblock %}
+
+{% block content %}
+
+{% include 'main/errors.html' %}
+
+{# <p><a href="{% url 'email:email_change' %}">Change email</a></p> #}
+
+<p>
+    <a href="{% url 'user:profile' user_pk %}">Public profile</a> |
+    <a href="{% url 'user:amounts' %}">Earned amounts</a>
+</p>
+
+<form method="post" action="">
+{% csrf_token %}
+<table>
+{{form}}
+</table>
+<input type="submit" value="Save"/>
+</form>
+
+{% endblock %}

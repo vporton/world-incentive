@@ -1,0 +1,62 @@
+{% extends "main/base.html" %}
+
+{% block css %}
+textarea { width: 100% }
+{% endblock %}
+
+{% block title %}User {{user.username}}{% endblock %}
+{% block header %}User {{user.username}}{% endblock %}
+
+{% block content %}
+
+<h2>User's projects</h2>
+
+{% if versions %}
+<ul>
+{% for v in versions %}
+    <li><a href="{% url 'project:view' v.project.pk %}">{{v.title}}</a>
+        {% if v.project.disabled %}(disabled){% endif %}</li>
+{% endfor %}
+</ul>
+{% else %}
+<p>No projects</p>
+{% endif %}
+
+<h2>User info</h2>
+
+<dl>
+    <dt>Username</dt>
+    <dd><p>{{user.username}}</p></dd>
+    <dt>First name</dt>
+    <dd><p>{{user.first_name}}</p></dd>
+    <dt>Last name</dt>
+    <dd><p>{{user.last_name}}</p></dd>
+    <dt>Email</dt>
+    <dd>
+        <p>
+            {% if user.show_email %}<a href="mailto:{{user.email}}">{{user.email}}</a>{% else %}n/a{% endif %}
+        </p>
+    </dd>
+    <dt>SSH public key</dt>
+    <dd>
+        <p>
+            {% if user.show_keys and user.ssh_pubkey != '' %}
+            <textarea readonly="readonly">{{user.ssh_pubkey}}</textarea>
+            {% else %}
+            n/a
+            {% endif %}
+        </p>
+    </dd>
+    <dt>PGP public key</dt>
+    <dd>
+        <p>
+            {% if user.show_keys and user.pgp_pubkey != '' %}
+            <textarea readonly="readonly">{{user.pgp_pubkey}}</textarea>
+            {% else %}
+            n/a
+            {% endif %}
+        </p>
+    </dd>
+</dl>
+
+{% endblock %}

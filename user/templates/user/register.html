@@ -1,0 +1,29 @@
+{% extends "main/base.html" %}
+
+{% block title %}User registration{% endblock %}
+{% block header %}User registration{% endblock %}
+{% block scripts %}
+<script src='https://www.google.com/recaptcha/api.js'></script>
+{% endblock %}
+
+{% block content %}
+
+{% include 'main/errors.html' %}
+
+<p>Already have an account? <a href="{% url 'login' %}">Login</a></p>
+
+<form method="post" action="">
+{% csrf_token %}
+<table>
+{{form}}
+</table>
+<input type="submit" value="Create user"/>
+</form>
+
+<p>You are <em>not</em> required to enter first and last name.
+    Moreover you may choose not to enter them if you do not want your financial operations to be associated with
+    your name. (This may help to save you from hackers, for example.)</p>
+
+<p>In no event we will distribute your email to spammers.</p>
+
+{% endblock %}
