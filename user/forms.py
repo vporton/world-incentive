@@ -11,7 +11,7 @@ class MyUserCreationForm(UserCreationForm):
     required_css_class = 'required'
 
     captcha = ReCaptchaField(widget=ReCaptchaWidget())
-    place = PlaceFormField()
+    place = PlaceFormField(required=False)
 
     class Meta:
         model = User
