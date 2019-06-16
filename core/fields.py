@@ -11,10 +11,10 @@ class PlaceFormField(forms.MultiValueField):
 
     @staticmethod
     def _my_validate(value):
-        if not value.region.country != value.country or \
-                not value.subregion.region != value.region or \
-                not value.city.subregion != value.subregion or \
-                not value.district.city != value.city:
+        if value.region and value.region.country != value.country or \
+                value.subregion and value.subregion.region != value.region or \
+                value.city and value.city.subregion != value.subregion or \
+                value.district and value.district.city != value.city:
             raise ValidationError(_("Wrong places hierarchy"))
 
     def __init__(self, *args, **kwargs):
