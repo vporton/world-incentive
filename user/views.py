@@ -20,7 +20,7 @@ class Register(View):
             raw_password = form.cleaned_data.get('password1')
             user = authenticate(username=username, password=raw_password)
             login(request, user)
-            return redirect('project:create')
+            return redirect('/')  # FIXME
         return render(request, 'user/register.html', {'form': form})
 
 

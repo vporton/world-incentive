@@ -28,6 +28,12 @@ class MyUserCreationForm(UserCreationForm):
                   'show_keys',
                   'captcha']
 
+    def save(self, commit=True):
+        value = super().save(commit)
+        for f in self.cleaned_data['place'].keys():
+            setattr(value.place, f, self.cleaned_data['place'][f])
+        return value
+
 
 class AccountForm(ModelForm):
     required_css_class = 'required'
