@@ -7,7 +7,17 @@ from core.fields import PlaceFormField
 from user.models import User
 
 
-class MyUserCreationForm(UserCreationForm):
+class AccountFormMixin(object):
+    def save(self, commit=True):
+        value = super().save(False)
+        for f in self.cleaned_data['place'].keys():
+            setattr(value.place, f, self.cleaned_data['place'][f])
+        if commit:
+            value.save()
+        return value
+
+
+class MyUserCreationForm(UserCreationForm, AccountFormMixin):
     required_css_class = 'required'
 
     captcha = ReCaptchaField(widget=ReCaptchaWidget())
@@ -28,21 +38,20 @@ class MyUserCreationForm(UserCreationForm):
                   'show_keys',
                   'captcha']
 
-    def save(self, commit=True):
-        value = super().save(commit)
-        for f in self.cleaned_data['place'].keys():
-            setattr(value.place, f, self.cleaned_data['place'][f])
-        return value
 
-
-class AccountForm(ModelForm):
+class AccountForm(ModelForm, AccountFormMixin):
     required_css_class = 'required'
 
-    # def __init__(self, *args, **kwargs):
-    #     super().__init__(*args, **kwargs)
-    #     self.fields['email'].required = True
+    place = PlaceFormField(required=False)
 
     class Meta:
         model = User
-        fields = ['username', 'first_name', 'last_name', 'ssh_pubkey', 'pgp_pubkey', 'show_email', 'show_keys']
+        fields = ['place',
+                  'username',
+                  'first_name',
+                  'last_name',
+                  'ssh_pubkey',
+                  'pgp_pubkey',
+                  'show_email',
+                  'show_keys']
         required = ['username']

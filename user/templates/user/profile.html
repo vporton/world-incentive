@@ -12,6 +12,16 @@ textarea { width: 100% }
 <h2>User info</h2>
 
 <dl>
+    <dt>Place</dt>
+    <dd>
+        <dl>
+            <dt>Country</dt><dd>{{user.place.country}}</dd>
+            <dt>Region</dt><dd>{{user.place.region}}</dd>
+            <dt>Subregion</dt><dd>{{user.place.subregion}}</dd>
+            <dt>City</dt><dd>{{user.place.city}}</dd>
+            <dt>District</dt><dd>{{user.place.district}}</dd>
+        </dl>
+    </dd>
     <dt>Username</dt>
     <dd><p>{{user.username}}</p></dd>
     <dt>First name</dt>
