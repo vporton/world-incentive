@@ -1,7 +1,7 @@
 from django import forms
 from django.core.exceptions import ValidationError
 
-from core.models import PlaceField
+import core.models
 from core.widgets import PlaceWidget
 from django.utils.translation import gettext as _
 
@@ -27,4 +27,4 @@ class PlaceFormField(forms.MultiValueField):
         self.validators.append(PlaceFormField._my_validate)
 
     def compress(self, values):
-        return PlaceField(*values)
+        return core.models.PlaceField(*values)

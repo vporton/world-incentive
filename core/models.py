@@ -2,7 +2,7 @@ import cities.models
 from composite_field import CompositeField
 from django.db import models
 
-from core.fields import PlaceFormField
+import core.fields
 
 
 class PlaceField(CompositeField):
@@ -13,7 +13,7 @@ class PlaceField(CompositeField):
     district = models.ForeignKey('cities.District', on_delete=models.SET_NULL, null=True)
 
     def formfield(self, **kwargs):
-        defaults = {'form_class': PlaceFormField}
+        defaults = {'form_class': core.fields.PlaceFormField}
         defaults.update(kwargs)
         return super().formfield(**defaults)
 
