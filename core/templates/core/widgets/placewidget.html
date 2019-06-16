@@ -1,9 +1,7 @@
 {% for widget in widget.subwidgets %}{% include widget.template_name %} {% endfor %}
+{% for widget in widget.subwidgets %}<input type="hidden" name="{{ widget.name }}"{% if widget.value != None %} value="{{ widget.value.0|stringformat:'s' }}"{% endif %} id="{{ widget.attrs.id }}_initial">{% endfor %}
 {% if widget.value != None %}
 <script>
-update_places_list(1);
-update_places_list(2);
-update_places_list(3);
-update_places_list(4);
+update_places_list(1, true);
 </script>
 {% endif %}

@@ -29,8 +29,9 @@ class PlaceFormField(forms.MultiValueField):
 
     def compress(self, values):
         # TODO: What to do if the PK doesn't refer to an object?
-        return {'country': values[0] and cities.models.Country.objects.get(pk=values[0]),
-                'region': values[1] and cities.models.Region.objects.get(pk=values[1]),
-                'subregion': values[2] and cities.models.Subregion.objects.get(pk=values[2]),
-                'city': values[3] and cities.models.City.objects.get(pk=values[3]),
-                'district': values[4] and cities.models.District.objects.get(pk=values[4])}
+        print('values:', values)
+        return {'country': (values[0] and cities.models.Country.objects.get(pk=values[0])) if values else None,
+                'region': (values[1] and cities.models.Region.objects.get(pk=values[1])) if values else None,
+                'subregion': (values[2] and cities.models.Subregion.objects.get(pk=values[2])) if values else None,
+                'city': (values[3] and cities.models.City.objects.get(pk=values[3])) if values else None,
+                'district': (values[4] and cities.models.District.objects.get(pk=values[4]) if values else None)}
