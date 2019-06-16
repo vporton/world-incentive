@@ -1,10 +1,9 @@
-from cities.models import Country
 from django.contrib.auth.forms import UserCreationForm
-from django import forms
 from django.forms import ModelForm
 from snowpenguin.django.recaptcha2.fields import ReCaptchaField
 from snowpenguin.django.recaptcha2.widgets import ReCaptchaWidget
 
+from core.fields import PlaceFormField
 from user.models import User
 
 
@@ -12,13 +11,11 @@ class MyUserCreationForm(UserCreationForm):
     required_css_class = 'required'
 
     captcha = ReCaptchaField(widget=ReCaptchaWidget())
-    country = forms.ModelChoiceField(queryset=Country.objects.all().order_by('name'))
-    city = forms.ChoiceField()
+    place = PlaceFormField()
 
     class Meta:
         model = User
-        fields = ['country',
-                  'city',
+        fields = ['place',
                   'username',
                   'password1',
                   'password2',

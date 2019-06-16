@@ -16,6 +16,7 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 
+import core.urls
 import initiative.urls
 import user.urls
 
@@ -23,6 +24,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('accounts/', include(('django.contrib.auth.urls'))),
     path('admin/defender/', include('defender.urls')),
+    path('core/', include(core.urls)),
     path('user/', include(user.urls)),
     path('initiative/', include(initiative.urls)),
 ]
