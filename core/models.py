@@ -6,8 +6,6 @@ import core.fields
 
 
 class PlaceField(CompositeField):
-    editable = True
-
     country = models.ForeignKey('cities.Country', on_delete=models.SET_NULL, null=True)
     region = models.ForeignKey('cities.Region', on_delete=models.SET_NULL, null=True)
     subregion = models.ForeignKey('cities.Subregion', on_delete=models.SET_NULL, null=True)

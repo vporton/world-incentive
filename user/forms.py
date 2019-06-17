@@ -38,6 +38,12 @@ class MyUserCreationForm(UserCreationForm, AccountFormMixin):
                   'show_keys',
                   'captcha']
 
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        instance = kwargs.get('instance')
+        if instance:
+            self.initial['place'] = instance.place._composite_field.value_from_object(instance)
+
 
 class AccountForm(ModelForm, AccountFormMixin):
     required_css_class = 'required'
@@ -55,3 +61,9 @@ class AccountForm(ModelForm, AccountFormMixin):
                   'show_email',
                   'show_keys']
         required = ['username']
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        instance = kwargs.get('instance')
+        if instance:
+            self.initial['place'] = instance.place._composite_field.value_from_object(instance)
