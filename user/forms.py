@@ -8,6 +8,11 @@ from user.models import User
 
 
 class AccountFormMixin(object):
+    def init_account_form(self, *args, **kwargs):
+        instance = kwargs.get('instance')
+        if instance:
+            self.initial['place'] = instance.place._composite_field.value_from_object(instance)
+
     def save(self, commit=True):
         value = super().save(False)
         for f in self.cleaned_data['place'].keys():
@@ -40,9 +45,7 @@ class MyUserCreationForm(UserCreationForm, AccountFormMixin):
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
-        instance = kwargs.get('instance')
-        if instance:
-            self.initial['place'] = instance.place._composite_field.value_from_object(instance)
+        self.init_account_form(*args, **kwargs)
 
 
 class AccountForm(ModelForm, AccountFormMixin):
@@ -64,6 +67,4 @@ class AccountForm(ModelForm, AccountFormMixin):
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
-        instance = kwargs.get('instance')
-        if instance:
-            self.initial['place'] = instance.place._composite_field.value_from_object(instance)
+        self.init_account_form(*args, **kwargs)
