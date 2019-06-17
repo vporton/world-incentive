@@ -24,10 +24,21 @@ class Initiative(models.Model):
     updated = models.DateTimeField(auto_now=True)
 
     place = core.models.PlaceField()
-
     # level = models.SmallIntegerField(_("Initiative level"))  # core.RegionLevel
 
+    votes_for = models.BigIntegerField(_("Votes for"))
+    votes_against = models.BigIntegerField(_("Votes against"))
+
+
+class InitiativeLanguage(models.Model):
+    initiative = models.ForeignKey(Initiative, on_delete=models.CASCADE)
     language = LanguageField()
+
+
+class InitiativeVersion(models.Model):
+    initiative_language = models.ForeignKey(InitiativeLanguage, on_delete=models.CASCADE)
+
+    created = models.DateTimeField(auto_now_add=True)
 
     title = models.CharField(max_length=255)
     problem = models.TextField()
@@ -35,6 +46,3 @@ class Initiative(models.Model):
     outcome = models.TextField()
 
     categories = models.ManyToManyField(InitiativeCategory)
-
-    votes_for = models.BigIntegerField(_("Votes for"))
-    votes_against = models.BigIntegerField(_("Votes against"))
