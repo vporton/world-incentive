@@ -41,36 +41,41 @@
 <body>
 
 <div class="container" style="background:white; padding:0px">
+  <div style="text-align: center">
+      <h1 style="font-size: 50pt">World Initiative</h1>
+  </div>
   <div class="row" style="margin:0px; padding:0">
-    <div class="navbar-collapse navbar-default mynavbar" style="padding:0px">
-      <div class="navbar-header">
-        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
-          <span class="sr-only">Toggle navigation</span>
-          <span class="icon-bar"></span>
-          <span class="icon-bar"></span>
-          <span class="icon-bar"></span>
-        </button>
+    <nav>
+      <div class="navbar-collapse navbar-default mynavbar" style="padding:0px">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+        </div>
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1" style="padding-left:15px">
+          <ul class="nav navbar-nav">
+            <li><a href="/">Home</a></li>
+            <li><a href="/blog/" target="_blank">Blog</a></li>
+          </ul>
+          <ul class="nav navbar-nav navbar-right">
+            {% if user.is_authenticated %}
+            <li><a href="{% url 'user:account' %}">Account</a></li>
+            <li><a href="{% url 'logout' %}">Log out</a></li>
+            {% else %}
+            <li><a href="{% url 'login' %}">Log in</a></li>
+            <li><a href="{% url 'user:register' %}">Sign up</a></li>
+            {% endif %}
+          </ul>
+        </div>
       </div>
-      <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1" style="padding-left:15px">
-        <ul class="nav navbar-nav">
-          <li><a href="/">Home</a></li>
-          <li><a href="/blog/" target="_blank">Blog</a></li>
-        </ul>
-        <ul class="nav navbar-nav navbar-right">
-          {% if user.is_authenticated %}
-          <li><a href="{% url 'user:account' %}">Account</a></li>
-          <li><a href="{% url 'logout' %}">Log out</a></li>
-          {% else %}
-          <li><a href="{% url 'login' %}">Log in</a></li>
-          <li><a href="{% url 'user:register' %}">Sign up</a></li>
-          {% endif %}
-        </ul>
-      </div>
-    </div>
+    </nav>
   </div>
   <div style="margin-left:15px; margin-right:15px">
     {% bootstrap_messages %}
-    <h1>{% block header %}{% endblock %}</h1>
+    <h2>{% block header %}{% endblock %}</h2>
     {% block content %}{% endblock %}
   </div>
 </div>
