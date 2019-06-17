@@ -6,6 +6,8 @@ import core.fields
 
 
 class PlaceField(CompositeField):
+    editable = True
+
     country = models.ForeignKey('cities.Country', on_delete=models.SET_NULL, null=True)
     region = models.ForeignKey('cities.Region', on_delete=models.SET_NULL, null=True)
     subregion = models.ForeignKey('cities.Subregion', on_delete=models.SET_NULL, null=True)
@@ -16,6 +18,13 @@ class PlaceField(CompositeField):
         defaults = {'form_class': core.fields.PlaceFormField}
         defaults.update(kwargs)
         return super().formfield(**defaults)
+
+    def value_from_object(self, obj):
+        return {'country': obj.place_country,
+                'region': obj.place_region,
+                'subregion': obj.place_subregion,
+                'city': obj.place_city,
+                'district': obj.place_district}
 
 
 class RegionLevel(object):

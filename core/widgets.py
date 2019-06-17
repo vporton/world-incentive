@@ -24,9 +24,9 @@ class PlaceWidget(widgets.MultiWidget):
 
     def decompress(self, value):
         if value:
-            return [value.country,
-                    value.region,
-                    value.subregion,
-                    value.city,
-                    value.district]
+            return [value['country'].pk if value['country'] else None,
+                    value['region'].pk if value['region'] else None,
+                    value['subregion'].pk if value['subregion'] else None,
+                    value['city'].pk if value['city'] else None,
+                    value['district'].pk if value['district'] else None]
         return [None, None, None, None, None]

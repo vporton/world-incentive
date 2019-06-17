@@ -26,7 +26,6 @@ class PlaceFormField(forms.MultiValueField):
                        forms.fields.IntegerField()]
         super().__init__(list_fields, *args, **kwargs)
         self.validators.append(PlaceFormField._my_validate)
-        # self.editable = True
 
     def compress(self, values):
         # TODO: What to do if the PK doesn't refer to an object?
