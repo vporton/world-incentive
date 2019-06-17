@@ -44,6 +44,7 @@ INSTALLED_APPS = [
     'defender',
     'languages',
     'cities',
+    'main',
     'core',
     'user',
     # 'initiative',

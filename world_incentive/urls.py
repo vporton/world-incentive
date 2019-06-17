@@ -18,12 +18,14 @@ from django.urls import path, include
 
 import core.urls
 import initiative.urls
+import main.views
 import user.urls
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('accounts/', include(('django.contrib.auth.urls'))),
     path('admin/defender/', include('defender.urls')),
+    path('', main.views.MainPage.as_view(), name='mainpage'),
     path('core/', include(core.urls)),
     path('user/', include(user.urls)),
     path('initiative/', include(initiative.urls)),
