@@ -22,7 +22,7 @@ class AccountFormMixin(object):
         return value
 
 
-class MyUserCreationForm(UserCreationForm, AccountFormMixin):
+class MyUserCreationForm(AccountFormMixin, UserCreationForm):
     required_css_class = 'required'
 
     captcha = ReCaptchaField(widget=ReCaptchaWidget())
@@ -48,7 +48,7 @@ class MyUserCreationForm(UserCreationForm, AccountFormMixin):
         self.init_account_form(*args, **kwargs)
 
 
-class AccountForm(ModelForm, AccountFormMixin):
+class AccountForm(AccountFormMixin, ModelForm):
     required_css_class = 'required'
 
     place = PlaceFormField(required=False)
