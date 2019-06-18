@@ -1,10 +1,9 @@
 from django import forms
 from django.core.exceptions import ValidationError
 import cities.models
-
-import core.models
-from core.widgets import PlaceWidget, LanguagesListWidget
 from django.utils.translation import gettext as _
+
+from core.widgets import PlaceWidget, LanguagesListWidget
 
 
 class PlaceFormField(forms.MultiValueField):

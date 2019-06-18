@@ -2,9 +2,15 @@ import html
 
 from django import views
 from django.http import HttpResponse
-from django.utils.translation import gettext as _
+from django.utils.translation import gettext as _, LANGUAGE_SESSION_KEY
 
 from core.models import RegionLevel
+
+
+class SetLanguageView(views.View):
+    def post(self, request):
+        request.session[LANGUAGE_SESSION_KEY] = request.POST.get('lang', 'en')
+        return HttpResponse('ok')
 
 
 class CitiesAjaxView(views.View):

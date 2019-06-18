@@ -19,28 +19,16 @@
   <style>
     {% block css %}{% endblock %}
   </style>
-  <script>
-      $(document).ajaxError(function( event, request, settings ) {
-          alert("Error: " + request.status);
-      });
-
-    (function($){
-        $(document).ready(function(){
-            $('ul.dropdown-menu [data-toggle=dropdown]').on('click', function(event) {
-                event.preventDefault();
-                event.stopPropagation();
-                $(this).parent().siblings().removeClass('open');
-                $(this).parent().toggleClass('open');
-            });
-        });
-    })(jQuery);
-  </script>
+  <script src="{% static 'js/main.js' %}"></script>
   {% block scripts %}{% endblock %}
   {% block moreheader %}{% endblock %}
 </head>
 <body>
 
 <div class="container" style="background:white; padding:0px">
+  <div style="float: right; margin: 4px">
+      {{ language_choice_form.language }}
+  </div>
   <div style="text-align: center">
       <h1 style="font-size: 50pt">World Initiative</h1>
   </div>
@@ -57,7 +45,8 @@
         </div>
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1" style="padding-left:15px">
           <ul class="nav navbar-nav">
-            <li><a href="/">Home</a></li>
+            <li><a href="{% url 'mainpage' %}">Home</a></li>
+            <!--li><a href="#">Add initiative</a></li-->
             <li><a href="/blog/" target="_blank">Blog</a></li>
           </ul>
           <ul class="nav navbar-nav navbar-right">
