@@ -50,6 +50,7 @@ class LanguagesListWidget(forms.Widget):
         d2 = d.copy() if d is not None else []
         # attrs2 = attrs.copy() if attrs is not None else {}
         # attrs2['required'] = False
+        # TODO: _("User language") and _("In order of preference")
         widget = LanguageField().widget
         widget.template_name = 'core/languages_list_item.html'
         d2['empty_value'] = widget.render('language', '')  # TODO: using fixed name 'language' is antinatural
