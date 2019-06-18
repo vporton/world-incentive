@@ -39,6 +39,7 @@ class InitiativeLanguage(models.Model):
             models.UniqueConstraint(fields=['initiative', 'language'], name='unique_initiative_language'),
         ]
 
+
 class InitiativeVersion(models.Model):
     initiative_language = models.ForeignKey(InitiativeLanguage, on_delete=models.CASCADE)
 
