@@ -1,7 +1,7 @@
 $(function() {
     // Requires jQuery UI
-    $('.urls_editor ul').sortable({
-        //handle: ".handle"
+    $('.languages_list ul').sortable({
+        handle: ".handle"
     });
 })
 

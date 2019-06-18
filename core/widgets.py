@@ -40,9 +40,11 @@ class LanguagesListWidget(forms.Widget):
     class Media:
         js = (
             'languages_list/js/languages_list.js',
+            'jquery-ui-1.12.1.custom/jquery-ui.js',
         )
         css = {
-            'screen': ('https://use.fontawesome.com/releases/v5.8.1/css/all.css',),
+            'screen': ('https://use.fontawesome.com/releases/v5.8.1/css/all.css',
+                       'jquery-ui-1.12.1.custom/jquery-ui.min.css'),
         }
 
     def get_context(self, name, value, attrs):
