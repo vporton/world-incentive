@@ -12,7 +12,9 @@ class UserLanguage(OrderedModel):
     order_with_respect_to = 'user'
 
     class Meta(OrderedModel.Meta):
-        pass
+        constraints = [
+            models.UniqueConstraint(fields=['user', 'language'], name='unique_user_language'),
+        ]
 
 
 class User(django.contrib.auth.models.AbstractUser):
