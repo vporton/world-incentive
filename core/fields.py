@@ -3,7 +3,7 @@ from django.core.exceptions import ValidationError
 import cities.models
 
 import core.models
-from core.widgets import PlaceWidget
+from core.widgets import PlaceWidget, LanguagesListWidget
 from django.utils.translation import gettext as _
 
 
@@ -34,3 +34,10 @@ class PlaceFormField(forms.MultiValueField):
                 'subregion': cities.models.Subregion.objects.get(pk=values[2]) if values and values[2] else None,
                 'city': cities.models.City.objects.get(pk=values[3]) if values and values[3] else None,
                 'district': cities.models.District.objects.get(pk=values[4]) if values and values[4] else None}
+
+
+class LanguagesListField(forms.Field):
+    widget = LanguagesListWidget
+
+    def clean(self, value):
+        return value

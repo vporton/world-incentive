@@ -1,0 +1,11 @@
+<div class="languages_list" {% include "django/forms/widgets/attrs.html" %}>
+    <ul style="margin: 0">
+        <li style="display: none" id="id_{{ widget.name }}_dummy">{{ empty_value }}</li>
+    </ul>
+    <script>
+    {% for lang in widget.value %}
+    languages_list_add('{{ widget.name }}', '{{ lang|escapejs }}');
+    {% endfor %}
+    </script>
+    <div><input type="button" value="Add" onclick="languages_list_add('{{ widget.name }}', '')"></div>
+</div>

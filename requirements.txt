@@ -1,6 +1,7 @@
 psycopg2
 django-composite-field
-django-language-field
+django-ordered-model
+git+ssh://git@github.com/vporton/django-language-field.git
 django-bootstrap3
 django-recaptcha2
 django-googlytics==0.2.1

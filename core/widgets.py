@@ -1,5 +1,7 @@
 from cities.models import Country
+from django import forms
 from django.forms import widgets
+from languages.forms import LanguageField
 
 
 class PlaceWidget(widgets.MultiWidget):
@@ -30,3 +32,31 @@ class PlaceWidget(widgets.MultiWidget):
                     value['city'].pk if value['city'] else None,
                     value['district'].pk if value['district'] else None]
         return [None, None, None, None, None]
+
+
+class LanguagesListWidget(forms.Widget):
+    template_name = 'core/languages_list.html'
+
+    class Media:
+        js = (
+            'languages_list/js/languages_list.js',
+        )
+        css = {
+            'screen': ('https://use.fontawesome.com/releases/v5.8.1/css/all.css',),
+        }
+
+    def get_context(self, name, value, attrs):
+        d = super().get_context(name, value, attrs)
+        d2 = d.copy() if d is not None else []
+        # attrs2 = attrs.copy() if attrs is not None else {}
+        # attrs2['required'] = False
+        field = LanguageField.widget()
+        d2['empty_value'] = field.render('language', '')  # TODO: using fixed name 'language' is antinatural
+        return d2
+
+    def format_value(self, value):
+        return value
+
+    def value_from_datadict(self, data, files, name):
+        # Remove the first dummy element
+        return data.getlist('language')[1:]
