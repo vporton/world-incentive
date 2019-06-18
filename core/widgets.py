@@ -50,8 +50,10 @@ class LanguagesListWidget(forms.Widget):
         d2 = d.copy() if d is not None else []
         # attrs2 = attrs.copy() if attrs is not None else {}
         # attrs2['required'] = False
-        field = LanguageField.widget()
-        d2['empty_value'] = field.render('language', '')  # TODO: using fixed name 'language' is antinatural
+        widget = LanguageField().widget
+        widget.template_name = 'core/languages_list_item.html'
+        d2['empty_value'] = widget.render('language', '')  # TODO: using fixed name 'language' is antinatural
+        # d2['empty_value'] = str(LanguageField())  # TODO: using fixed name 'language' is antinatural
         return d2
 
     def format_value(self, value):

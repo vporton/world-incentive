@@ -1,0 +1,7 @@
+<div {% include "django/forms/widgets/attrs.html" %}>
+    <p>
+        <i class="fas fa-sort handle"></i>
+        {% include 'django/forms/widgets/select.html' %}
+        <input type="button" value="Delete" onclick="$(this).parent().parent().parent().remove()">
+    </p>
+</div>
