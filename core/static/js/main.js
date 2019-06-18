@@ -55,3 +55,11 @@ function set_language(lang) {
         location.reload();
     });
 }
+
+function ajax_dialog(url) {
+    $.get(url, function(html) {
+        $('body').append(html);
+        $('#dialog').dialog();
+    });
+    return false;
+}

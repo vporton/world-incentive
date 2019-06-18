@@ -44,6 +44,7 @@ class AccountFormMixin(object):
             raise forms.ValidationError(_("Each language can be specified at most once."))
         return data
 
+
 class MyUserCreationForm(AccountFormMixin, UserCreationForm):
     required_css_class = 'required'
 

@@ -40,7 +40,7 @@ class LanguagesListWidget(forms.Widget):
     class Media:
         js = (
             'languages_list/js/languages_list.js',
-            'jquery-ui-1.12.1.custom/jquery-ui.js',
+            # 'jquery-ui-1.12.1.custom/jquery-ui.js',
         )
         css = {
             'screen': ('https://use.fontawesome.com/releases/v5.8.1/css/all.css',

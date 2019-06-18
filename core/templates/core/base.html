@@ -14,7 +14,8 @@
   crossorigin="anonymous"></script>
   {% bootstrap_css %}
   {% bootstrap_javascript %}
-  {# TODO: Don't load Juery UI for pages not requiring it. #}
+  <script src="{% static 'jquery-ui-1.12.1.custom/jquery-ui.min.js' %}"></script>
+  <link rel='stylesheet' type='text/css' href='{% static 'jquery-ui-1.12.1.custom/jquery-ui.min.css' %}' />
   <link rel='stylesheet' type='text/css' href='{% static 'main.css' %}' />
   <style>
     {% block css %}{% endblock %}
@@ -46,7 +47,7 @@
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1" style="padding-left:15px">
           <ul class="nav navbar-nav">
             <li><a href="{% url 'mainpage' %}">Home</a></li>
-            <!--li><a href="#">Add initiative</a></li-->
+            <li><a href="#" onclick="return ajax_dialog('{% url 'initiative:create-prompt' %}');">Add initiative</a></li>
             <li><a href="/blog/" target="_blank">Blog</a></li>
           </ul>
           <ul class="nav navbar-nav navbar-right">
