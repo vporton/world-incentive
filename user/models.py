@@ -7,7 +7,7 @@ import core
 
 
 class UserLanguage(OrderedModel):
-    user = models.ForeignKey('User', on_delete=models.CASCADE)
+    user = models.ForeignKey('User', on_delete=models.CASCADE, related_name='languages')
     language = LanguageField()
     order_with_respect_to = 'user'
 

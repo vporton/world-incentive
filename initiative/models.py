@@ -31,7 +31,7 @@ class Initiative(models.Model):
 
 
 class InitiativeLanguage(models.Model):
-    initiative = models.ForeignKey(Initiative, on_delete=models.CASCADE)
+    initiative = models.ForeignKey(Initiative, on_delete=models.CASCADE, related_name='languages')
     language = LanguageField()
 
     class Meta:
@@ -41,7 +41,7 @@ class InitiativeLanguage(models.Model):
 
 
 class InitiativeVersion(models.Model):
-    initiative_language = models.ForeignKey(InitiativeLanguage, on_delete=models.CASCADE)
+    initiative_language = models.ForeignKey(InitiativeLanguage, on_delete=models.CASCADE, related_name='versions')
 
     created = models.DateTimeField(auto_now_add=True)
 
