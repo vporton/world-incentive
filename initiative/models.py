@@ -32,7 +32,7 @@ class Initiative(models.Model):
 
 class InitiativeLanguage(models.Model):
     initiative = models.ForeignKey(Initiative, on_delete=models.CASCADE, related_name='languages')
-    language = LanguageField()
+    language = LanguageField(db_index=True)
 
     class Meta:
         constraints = [
