@@ -2,6 +2,7 @@ from django.contrib.auth.forms import UserCreationForm
 from django.forms import ModelForm
 from snowpenguin.django.recaptcha2.fields import ReCaptchaField
 from snowpenguin.django.recaptcha2.widgets import ReCaptchaWidget
+from django.utils.translation import gettext as _
 
 from core.fields import PlaceFormField, LanguagesListField
 from user.models import User
@@ -27,7 +28,7 @@ class MyUserCreationForm(AccountFormMixin, UserCreationForm):
 
     captcha = ReCaptchaField(widget=ReCaptchaWidget())
     place = PlaceFormField(required=False)
-    languages = LanguagesListField()
+    languages = LanguagesListField(label=_("User's languages"), help_text=_("In order of preference"))
 
     class Meta:
         model = User
@@ -54,7 +55,7 @@ class AccountForm(AccountFormMixin, ModelForm):
     required_css_class = 'required'
 
     place = PlaceFormField(required=False)
-    languages = LanguagesListField()
+    languages = LanguagesListField(label=_("User's languages"), help_text=_("In order of preference"))
 
     class Meta:
         model = User
