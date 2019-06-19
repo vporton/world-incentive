@@ -1,5 +1,8 @@
 <div id="dialog" title="Create Initiative" style="display: none">
-    <table>
-        {{ form }}
-    </table>
+    <form method="get" action="{% url 'initiative:create' %}">
+        {#% csrf_token %#}
+        <table>
+            {{ form }}
+        </table>
+    </form>
 </div>

@@ -1,0 +1,38 @@
+{% extends "core/base.html" %}
+
+{% block title %}Create Initiative{% endblock %}
+{% block header %}Create Initiative{% endblock %}
+{% block scripts %}
+<link href="//cdnjs.cloudflare.com/ajax/libs/summernote/0.8.12/summernote.css" rel="stylesheet">
+<script src="//cdnjs.cloudflare.com/ajax/libs/summernote/0.8.12/summernote.js"></script>
+{{ form.media }}
+<script>
+$(function() {
+    $(document).ready(function() {
+      $('#id_problem, #id_solution, #id_outcome').summernote({
+          toolbar: [
+              // [groupName, [list of button]]
+              ['style', ['bold', 'italic', 'underline', 'clear']],
+              ['font', ['strikethrough', 'superscript', 'subscript']],
+              ['fontsize', ['fontsize']],
+              ['color', ['color']],
+              ['para', ['style', 'paragraph', 'ol', 'ul']],
+              ['insert', ['link', 'picture', 'video', 'table', 'hr']],
+              ['view', ['fullscreen', 'undo', 'redo', 'help']],
+          ]
+      });
+    });
+});
+</script>
+{% endblock %}
+
+{% block content %}
+
+<form method="post">
+    <table>
+        {{ form.as_table }}
+    </table>
+    <input type="submit" value="Create" />
+</form>
+
+{% endblock %}

@@ -74,6 +74,7 @@ function ajax_create_initiative_prompt(url) {
                 text: "OK",
                 click: function () {
                     $(this).dialog("close");
+                    $('form', this).submit();
                 }
             },
             {
