@@ -17,7 +17,7 @@ textarea { width: 100% }
         <li>
             {% for lang in initiative.languages.all %}
                 <a href="#" lang="{{ lang.language }}">{{ lang.last_version }}</a>
-                ({{ lang.language_name }})
+                ({{ lang.language_name }}){% if not forloop.last %}, {% endif %}
             {% endfor %}
         </li>
     {% endfor %}
