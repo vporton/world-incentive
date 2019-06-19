@@ -34,6 +34,8 @@
         {% endif %}
     </p>
 
+    <p lang="{{ lang }}"><b>Created:</b> {{ version.initiative_language.initiative.created }} UTC</p>
+
     <h3 lang="{{ lang }}">Problem</h3>
 
     {{ problem }}
@@ -78,6 +80,7 @@
     <ul>
     {% for old in old_versions %}
         <li>
+            {{ version.created }} UTC -
             <a href="{% url 'initiative:view-old' version.pk %}"
                    lang="{{ version.initiative_language.language }}">{{ old }}</a>
             {% if old.pk == version.pk %}

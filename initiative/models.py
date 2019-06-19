@@ -1,3 +1,4 @@
+from datetime import datetime
 from itertools import zip_longest
 from django.db import models, transaction
 from django.utils.translation import gettext as _
@@ -53,6 +54,7 @@ class Initiative(models.Model):
                 version.initiative_language = lang_obj
                 version.save()
                 lang_obj.last_version = version
+                self.updated = datetime.datetime.now()
             return True
 
     def first_of_specified_languages(self, language_codes):
