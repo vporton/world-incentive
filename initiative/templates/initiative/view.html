@@ -6,7 +6,7 @@
 {% block moreheader %}
     {% if is_last_version %}
         <link rel="canonical"
-              href="{% url 'initiative:view' version.initiative_language.initiative.pk %}?lang={{ version.initiative_language.language }}" />
+              href="{{ settings.SITE_URL }}{% url 'initiative:view' version.initiative_language.initiative.pk %}?lang={{ version.initiative_language.language }}" />
     {% endif %}
 {% endblock %}
 

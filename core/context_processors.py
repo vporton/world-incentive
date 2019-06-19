@@ -1,6 +1,13 @@
+from django.conf import settings
 from django.utils.translation import get_language_from_request
 
 from core.forms import LanguageChoiceForm
+
+
+def settings_context_processor(request):
+    return {
+        'settings': settings,
+    }
 
 
 def language_choice_form_context_processor(request):
