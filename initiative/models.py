@@ -45,9 +45,9 @@ class InitiativeVersion(models.Model):
 
     created = models.DateTimeField(auto_now_add=True)
 
-    title = models.CharField(max_length=255)
-    problem = models.TextField()
-    solution = models.TextField()
-    outcome = models.TextField()
+    title = models.CharField(max_length=255, blank=False)
+    problem = models.TextField(blank=False)
+    solution = models.TextField(blank=False)
+    outcome = models.TextField(blank=False)
 
     categories = models.ManyToManyField(InitiativeCategory)
