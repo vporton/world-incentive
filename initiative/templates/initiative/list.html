@@ -1,0 +1,18 @@
+{% extends "core/base.html" %}
+
+{% block title %}Initiatives list{% endblock %}
+{% block header %}Initiatives list{% endblock %}
+
+{% block content %}
+
+{% include 'core/paginator_template.html' %}
+
+<ul>
+    {% for i in versions %}
+    <li><a href="{% url 'initiative:view' i.initiative_language.initiative.pk %}?lang={{ i.initiative_language.language }}">{{ i }}</a></li>
+    {% endfor %}
+</ul>
+
+{% include 'core/paginator_template.html' %}
+
+{% endblock %}

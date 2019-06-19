@@ -55,6 +55,21 @@ class Initiative(models.Model):
                 lang_obj.last_version = version
             return True
 
+    def first_of_specified_languages(self, language_codes):
+        lang_obj = None
+        for language_code in language_codes:
+            try:
+                lang_obj = InitiativeLanguage.objects.get(initiative=self, language=language_code)
+            except InitiativeLanguage.DoesNotExist:
+                pass
+            else:
+                break
+        return lang_obj
+
+    def version_in_specified_languages(self, language_codes):
+        lang_obj = self.first_of_specified_languages(language_codes)
+        return lang_obj.last_version if lang_obj else None
+
 
 class InitiativeLanguage(models.Model):
     initiative = models.ForeignKey(Initiative, on_delete=models.CASCADE, related_name='languages')
