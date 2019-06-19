@@ -3,6 +3,8 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.views.generic import View
 from django.contrib.auth import login, authenticate
 
+from core.misc import LANGUAGE_NAMES
+from initiative.models import Initiative, InitiativeVersion
 from user.forms import MyUserCreationForm, AccountForm
 from user.models import User
 
@@ -39,4 +41,10 @@ class Account(LoginRequiredMixin, View):
 class ViewProfile(View):
     def get(self, request, user_pk):
         user = get_object_or_404(User, pk=user_pk)
-        return render(request, 'user/profile.html', {'user': user})
+        initiative_pks = InitiativeVersion.objects.filter(editor=user).\
+            select_related('initiative_language__initiative').\
+            values_list('initiative_language__initiative', flat=True).\
+            distinct()
+        initiatives = Initiative.objects.filter(pk__in=initiative_pks)
+        return render(request, 'user/profile.html', {'user': user,
+                                                     'initiatives': initiatives})

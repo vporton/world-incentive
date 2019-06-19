@@ -4,6 +4,7 @@ from django.utils.translation import gettext as _
 from languages.fields import LanguageField
 
 import core.models
+from core.misc import LANGUAGE_NAMES
 
 
 class InitiativeCategory(models.Model):
@@ -39,7 +40,7 @@ class Initiative(models.Model):
             lang_obj = self.initiativelanguage.get(language=language)
         except InitiativeLanguage.DoesNotExist:
             return None
-        return lang_obj.versions.all().order_by('id').last()
+        return lang_obj.last_version
 
     def add_version(self, version, language):
         """Return `True` if a new version was created."""
@@ -63,11 +64,20 @@ class InitiativeLanguage(models.Model):
             models.UniqueConstraint(fields=['initiative', 'language'], name='unique_initiative_language'),
         ]
 
+    @property
+    def last_version(self):
+        return self.versions.all().order_by('id').last()
+
+    @property
+    def language_name(self):
+        return LANGUAGE_NAMES[self.language]
 
 class InitiativeVersion(models.Model):
     initiative_language = models.ForeignKey(InitiativeLanguage, on_delete=models.CASCADE, related_name='versions')
 
     created = models.DateTimeField(auto_now_add=True)
+
+    editor = models.ForeignKey('user.User', null=True, on_delete=models.SET_NULL)
 
     title = models.CharField(max_length=255, blank=False)
     problem = models.TextField(blank=False)
@@ -75,6 +85,9 @@ class InitiativeVersion(models.Model):
     outcome = models.TextField(blank=False)
 
     categories = models.ManyToManyField(InitiativeCategory)
+
+    def __str__(self):
+        return self.title
 
     def __eq__(self, other):
         if other is None:

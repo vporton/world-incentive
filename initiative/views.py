@@ -23,5 +23,6 @@ class CreateInitiativeView(LoginRequiredMixin, View):
 
     def post(self, request):
         form = InitiativeForm(request.POST)
+        form.fields['editor'] = request.user
         form.save()
         return render(request, 'initiative/initiative-form.html', {'form': form})  # FIXME

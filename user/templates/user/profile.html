@@ -4,10 +4,27 @@
 textarea { width: 100% }
 {% endblock %}
 
-{% block title %}User {{user.username}}{% endblock %}
-{% block header %}User {{user.username}}{% endblock %}
+{% block title %}User {{user.username}} profile{% endblock %}
+{% block header %}User {{user.username}} profile{% endblock %}
 
 {% block content %}
+
+<h2>User's initiatives</h2>
+
+{% if initiatives %}
+    <ul>
+    {% for initiative in initiatives %}
+        <li>
+            {% for lang in initiative.languages.all %}
+                <a href="#" lang="{{ lang.language }}">{{ lang.last_version }}</a>
+                ({{ lang.language_name }})
+            {% endfor %}
+        </li>
+    {% endfor %}
+    </ul>
+{% else %}
+    <p>None.</p>
+{% endif %}
 
 <h2>User info</h2>
 
