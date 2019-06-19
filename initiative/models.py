@@ -39,15 +39,19 @@ class Initiative(models.Model):
             lang_obj = self.initiativelanguage.get(language=language)
         except InitiativeLanguage.DoesNotExist:
             return None
-        return lang_obj.initiativeversion.all().order_by('id').last()
+        return lang_obj.versions.all().order_by('id').last()
 
     def add_version(self, version, language):
-        lang_obj = InitiativeLanguage.objects.get_or_create(initiative=self, language=language)
-        last_version = lang_obj.initiativeversion.all().order_by('id').last()
+        """Return `True` if a new version was created."""
+        lang_obj, _ = InitiativeLanguage.objects.get_or_create(initiative=self, language=language)
+        last_version = lang_obj.versions.all().order_by('id').last()
         if version == last_version:
-            return last_version
+            return False
         else:
-            return version.save()
+            version.initiative = self
+            version.initiative_language = lang_obj
+            version.save()
+            return True
 
 
 class InitiativeLanguage(models.Model):

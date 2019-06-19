@@ -19,3 +19,8 @@ class CreateInitiativeView(View):
         language = request.GET.get('language', 'en')
         form = InitiativeForm(initial={'language': language})
         return render(request, 'initiative/initiative-form.html', {'form': form})
+
+    def post(self, request):
+        form = InitiativeForm(request.POST)
+        form.save()
+        return render(request, 'initiative/initiative-form.html', {'form': form})  # FIXME

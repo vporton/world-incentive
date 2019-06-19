@@ -1,11 +1,13 @@
 from django import forms
+from django.core.exceptions import ValidationError
+from django.db import transaction, IntegrityError
 from django.forms import ChoiceField, CheckboxSelectMultiple
 from django.utils.translation import gettext as _
 import languages.languages
 from languages.forms import LanguageField
 
 from core.fields import PlaceFormField
-from initiative.models import InitiativeVersion, InitiativeCategory
+from initiative.models import InitiativeVersion, InitiativeCategory, InitiativeLanguage, Initiative
 
 
 class CreateInitiativePromptForm(forms.Form):
@@ -18,6 +20,7 @@ class CreateInitiativePromptForm(forms.Form):
 class InitiativeForm(forms.ModelForm):
     required_css_class = 'required'
 
+    initiative = forms.IntegerField(widget=forms.HiddenInput(), required=False)
     language = LanguageField(choices=languages.languages.LANGUAGES,
                              label=_("Initiative language"),
                              help_text=_("More languages can be added later."))
@@ -29,9 +32,28 @@ class InitiativeForm(forms.ModelForm):
 
     class Meta:
         model = InitiativeVersion
-        fields = ['language',
+        fields = ['initiative',
+                  'language',
                   'place',
                   'title',
                   'problem',
                   'solution',
                   'outcome']
+
+    def save(self, commit=True):
+        version = super().save(commit=False)
+        if commit:
+            with transaction.atomic():
+                initiative_id = self.cleaned_data['initiative']
+                if initiative_id:
+                    initiative = Initiative.objects.get(pk=initiative_id)
+                else:
+                    h = {'place_' + f: self.cleaned_data['place'][f] for f in self.cleaned_data['place'].keys()}
+                    initiative = Initiative.objects.create(**h)
+                if initiative.add_version(version, self.cleaned_data['language']):
+                    try:
+                        for category in self.cleaned_data['categories']:
+                            InitiativeLanguage.objects.create(initiative=version, category=category)
+                    except IntegrityError as e:
+                        raise ValidationError(e)
+        return version
