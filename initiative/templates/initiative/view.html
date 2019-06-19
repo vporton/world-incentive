@@ -3,9 +3,22 @@
 {% block title %}Initiative {{version.title}}{% endblock %}
 {% block header %}{{version.title}}{% endblock %}
 
+{% block moreheader %}
+    {% if is_last_version %}
+        <link rel="canonical"
+              href="{% url 'initiative:view' version.initiative_language.initiative.pk %}?lang={{ version.initiative_language.language }}" />
+    {% endif %}
+{% endblock %}
+
 {% block content %}
 
 {% if version %}
+
+    {% if not is_last_version %}
+        <p><span style="color: red">This is not the last version of the initiative.</span>
+            <a href="{% url 'initiative:view' version.initiative_language.initiative.pk %}?lang={{ version.initiative_language.language }}"
+               lang="{{ version.initiative_language.language }}">Go to the last version.</a></p>
+    {% endif %}
 
 <section lang="{{ version.initiative_language.language }}">
 
@@ -65,7 +78,7 @@
     <ul>
     {% for old in old_versions %}
         <li>
-            <a href="{% url 'initiative:view' version.initiative_language.initiative.pk %}?lang={{ version.initiative_language.language }}"
+            <a href="{% url 'initiative:view-old' version.pk %}"
                    lang="{{ version.initiative_language.language }}">{{ old }}</a>
             {% if old.pk == version.pk %}
                 (current)

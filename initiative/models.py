@@ -93,7 +93,7 @@ class InitiativeVersion(models.Model):
         if self.title != other.title or \
                 self.problem != other.problem or \
                 self.solution != other.solution or \
-                self.outcome != other.outcode:
+                self.outcome != other.outcome:
             return False
         cat1 = self.categories.all().order_by('id')
         cat2 = other.categories.all().order_by('id')
