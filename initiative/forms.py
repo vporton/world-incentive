@@ -19,10 +19,9 @@ class CreateInitiativePromptForm(forms.Form):
 class InitiativeForm(forms.ModelForm):
     required_css_class = 'required'
 
-    language = ChoiceField(choices=languages.languages.LANGUAGES,
-                           widget=LanguageField.widget(),
-                           label=_("Initiative language"),
-                           help_text=_("More languages can be added later."))
+    language = LanguageField(choices=languages.languages.LANGUAGES,
+                             label=_("Initiative language"),
+                             help_text=_("More languages can be added later."))
     place = PlaceFormField(required=False)
 
     class Meta:
