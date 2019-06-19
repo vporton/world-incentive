@@ -6,4 +6,4 @@ from initiative.forms import InitiativeForm
 
 class MainPage(View):
     def get(self, request):
-        return render(request, 'initiative/initiative-form.html')
+        return render(request, 'main/mainpage.html')
