@@ -62,8 +62,13 @@ class ListInitiativeView(View):
 
         versions = (i.version_in_specified_languages(language_codes) for i in initiatives)
 
+        # Remove duplicate content
+        # nofollow = not InitiativeLanguage.objects.filter(language__in=language_codes).exists()
+
         return render(request, 'initiative/list.html',
-                      {'versions': versions, 'paginator': paginator, 'page_obj': initiatives})
+                      {'versions': versions,
+                       'paginator': paginator,
+                       'page_obj': initiatives})
 
 
 class ShowInitiativeVersionView(View):
