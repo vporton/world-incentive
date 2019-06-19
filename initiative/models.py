@@ -26,8 +26,8 @@ class Initiative(models.Model):
     place = core.models.PlaceField()
     # level = models.SmallIntegerField(_("Initiative level"))  # core.RegionLevel
 
-    votes_for = models.BigIntegerField(_("Votes for"))
-    votes_against = models.BigIntegerField(_("Votes against"))
+    votes_for = models.BigIntegerField(_("Votes for"), default=0)
+    votes_against = models.BigIntegerField(_("Votes against"), default=0)
 
 
 class InitiativeLanguage(models.Model):
