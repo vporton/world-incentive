@@ -1,0 +1,40 @@
+{% extends "core/base.html" %}
+
+{% block title %}Initiative {{version.title}}{% endblock %}
+{% block header %}{{version.title}}{% endblock %}
+
+{% block content %}
+
+{% if version %}
+
+<section lang="{{ version.initiative_language.language }}">
+
+    <p><b>Place</b>
+        {% if version.place.country %}
+            Country: {{version.place.country}} |
+            Region: {{version.place.region}} |
+            Subregion: {{version.place.subregion}} |
+            City: {{version.place.city}} |
+            District: {{version.place.district}}</p>
+        {% else %}
+            World
+        {% endif %}
+    {{ problem }}
+
+    <h3>Practical result</h3>
+
+    {{ outcome }}
+
+    <h3>Solution</h3>
+
+    {{ solution }}
+
+</section>
+
+{% else  %}
+
+<p>Initiative not available in given language(s).</p>
+
+{% endif %}
+
+{% endblock %}
