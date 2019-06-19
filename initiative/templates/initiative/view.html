@@ -9,7 +9,7 @@
 
 <section lang="{{ version.initiative_language.language }}">
 
-    <p lang="{{ lang }}"><b>Place</b>
+    <p lang="{{ lang }}"><b>Place:</b>
         {% if version.place.country %}
             Country: {{version.place.country}} |
             Region: {{version.place.region}} |
@@ -19,6 +19,10 @@
         {% else %}
             World
         {% endif %}
+    </p>
+
+    <h3 lang="{{ lang }}">Problem</h3>
+
     {{ problem }}
 
     <h3 lang="{{ lang }}">Practical result</h3>
