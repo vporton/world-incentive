@@ -150,6 +150,7 @@ GOOGLE_ANALYTICS_KEY = ''
 # GOOGLE_ANALYTICS_IGNORE_ADMIN = True # bug in django-googlytics==0.2.1
 
 SITE_URL = 'http://127.0.0.1:8000'
+LOGIN_REDIRECT_URL = '/'
 
 try:
     from local_settings import *

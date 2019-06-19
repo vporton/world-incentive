@@ -2,6 +2,7 @@ from django.conf import settings
 from django.utils.translation import get_language_from_request
 
 from core.forms import LanguageChoiceForm
+from user.models import User
 
 
 def settings_context_processor(request):
@@ -12,7 +13,10 @@ def settings_context_processor(request):
 
 def language_choice_form_context_processor(request):
     language = get_language_from_request(request, check_path=True)
+    user_languages = [language] if request.user.is_anonymous \
+        else request.user.languages.all().values_list('language', flat=True)
     return {
         'lang': language,
+        'user_languages': ','.join(user_languages),
         'language_choice_form': LanguageChoiceForm(initial={'language': language}),
     }

@@ -11,11 +11,15 @@
 
 {% include 'core/paginator_template.html' %}
 
-<ul>
-    {% for i in versions %}
-    <li><a href="{% url 'initiative:view' i.initiative_language.initiative.pk %}?lang={{ i.initiative_language.language }}">{{ i }}</a></li>
-    {% endfor %}
-</ul>
+{% if versions %}
+    <ul>
+        {% for i in versions %}
+        <li><a href="{% url 'initiative:view' i.initiative_language.initiative.pk %}?lang={{ i.initiative_language.language }}">{{ i }}</a></li>
+        {% endfor %}
+    </ul>
+{% else %}
+    <p>None</p>
+{% endif %}
 
 {% include 'core/paginator_template.html' %}
 
