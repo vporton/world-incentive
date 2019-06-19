@@ -92,13 +92,6 @@
   },
   {
     "model": "initiative.initiativecategory",
-    "pk": 14,
-    "fields": {
-      "name": "Criminal Code"
-    }
-  },
-  {
-    "model": "initiative.initiativecategory",
     "pk": 15,
     "fields": {
       "name": "Public administration"
@@ -144,6 +137,13 @@
     "pk": 21,
     "fields": {
       "name": "Technology"
+    }
+  },
+  {
+    "model": "initiative.initiativecategory",
+    "pk": 22,
+    "fields": {
+      "name": "Legal and justice"
     }
   }
 ]
