@@ -47,7 +47,7 @@
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1" style="padding-left:15px">
           <ul class="nav navbar-nav">
             <li><a href="{% url 'mainpage' %}">Home</a></li>
-            <li><a href="#" onclick="return ajax_dialog('{% url 'initiative:create-prompt' %}');">Add initiative</a></li>
+            <li><a href="#" onclick="return ajax_create_initiative_prompt('{% url 'initiative:create-prompt' %}');">Add initiative</a></li>
             <li><a href="/blog/" target="_blank">Blog</a></li>
           </ul>
           <ul class="nav navbar-nav navbar-right">

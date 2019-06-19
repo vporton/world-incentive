@@ -1,3 +1,5 @@
+body.wait * { cursor: wait !important }
+
 td, th { padding: 3px; }
 
 .mynavbar {

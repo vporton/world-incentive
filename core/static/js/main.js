@@ -56,10 +56,33 @@ function set_language(lang) {
     });
 }
 
-function ajax_dialog(url) {
+function ajax_dialog(url, arg) {
+    $('#dialog').remove();
+    $('body').addClass('wait')
     $.get(url, function(html) {
         $('body').append(html);
-        $('#dialog').dialog();
+        $('#dialog').dialog(arg);
+        $('body').removeClass('wait')
     });
     return false;
+}
+
+function ajax_create_initiative_prompt(url) {
+    ajax_dialog(url, {
+        buttons: [
+            {
+                text: "OK",
+                click: function () {
+                    $(this).dialog("close");
+                }
+            },
+            {
+                text: "Cancel",
+                click: function () {
+                    $(this).dialog("close");
+                }
+            }
+        ],
+        width: 600
+    });
 }
