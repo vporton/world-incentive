@@ -68,7 +68,7 @@ function ajax_dialog(url, arg) {
 }
 
 function ajax_create_initiative_prompt(url) {
-    ajax_dialog(url, {
+    return ajax_dialog(url, {
         buttons: [
             {
                 text: "OK",
