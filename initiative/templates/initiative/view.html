@@ -22,19 +22,27 @@
 
 <section lang="{{ version.initiative_language.language }}">
 
-    <p lang="{{ lang }}"><b>Place:</b>
-        {% if version.place.country %}
-            Country: {{version.place.country}} |
-            Region: {{version.place.region}} |
-            Subregion: {{version.place.subregion}} |
-            City: {{version.place.city}} |
-            District: {{version.place.district}}</p>
-        {% else %}
-            World
-        {% endif %}
-    </p>
+    <section lang="{{ lang }}">
 
-    <p lang="{{ lang }}"><b>Created:</b> {{ version.initiative_language.initiative.created }} UTC</p>
+        <p><b>Place:</b>
+            {% if version.place.country %}
+                Country: {{version.place.country}} |
+                Region: {{version.place.region}} |
+                Subregion: {{version.place.subregion}} |
+                City: {{version.place.city}} |
+                District: {{version.place.district}}</p>
+            {% else %}
+                World
+            {% endif %}
+        </p>
+
+        <p><b>Created:</b> {{ version.initiative_language.initiative.created }} UTC</p>
+
+        <nav>
+            <p><a href="#">Add new version or translate to another language.</a></p>
+        </nav>
+
+    </section>
 
     <h3 lang="{{ lang }}">Problem</h3>
 
