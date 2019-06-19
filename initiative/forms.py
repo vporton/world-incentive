@@ -22,7 +22,8 @@ class InitiativeForm(forms.ModelForm):
     language = LanguageField(choices=languages.languages.LANGUAGES,
                              label=_("Initiative language"),
                              help_text=_("More languages can be added later."))
-    place = PlaceFormField(required=False)
+    place = PlaceFormField(required=False,
+                           help_text=_("Enter nothing for distributing the initiative to the entire world."))
 
     class Meta:
         model = InitiativeVersion
