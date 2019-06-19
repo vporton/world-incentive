@@ -3,6 +3,7 @@ from django.conf import settings
 from django.forms import ChoiceField
 from django.utils.translation import gettext as _
 import languages.languages
+from languages.forms import LanguageField
 
 from core.fields import PlaceFormField
 from initiative.models import InitiativeVersion
@@ -19,7 +20,7 @@ class InitiativeForm(forms.ModelForm):
     required_css_class = 'required'
 
     language = ChoiceField(choices=languages.languages.LANGUAGES,
-                           widget=forms.Select(),
+                           widget=LanguageField.widget(),
                            label=_("Initiative language"),
                            help_text=_("More languages can be added later."))
     place = PlaceFormField(required=False)
