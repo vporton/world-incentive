@@ -1,3 +1,4 @@
+from itertools import zip_longest
 from django.db import models
 from django.utils.translation import gettext as _
 from languages.fields import LanguageField
@@ -32,6 +33,22 @@ class Initiative(models.Model):
     votes_for = models.BigIntegerField(_("Votes for"), default=0)
     votes_against = models.BigIntegerField(_("Votes against"), default=0)
 
+    @property
+    def last_version(self, language):
+        try:
+            lang_obj = self.initiativelanguage.get(language=language)
+        except InitiativeLanguage.DoesNotExist:
+            return None
+        return lang_obj.initiativeversion.all().order_by('id').last()
+
+    def add_version(self, version, language):
+        lang_obj = InitiativeLanguage.objects.get_or_create(initiative=self, language=language)
+        last_version = lang_obj.initiativeversion.all().order_by('id').last()
+        if version == last_version:
+            return last_version
+        else:
+            return version.save()
+
 
 class InitiativeLanguage(models.Model):
     initiative = models.ForeignKey(Initiative, on_delete=models.CASCADE, related_name='languages')
@@ -54,3 +71,16 @@ class InitiativeVersion(models.Model):
     outcome = models.TextField(blank=False)
 
     categories = models.ManyToManyField(InitiativeCategory)
+
+    def __eq__(self, other):
+        if other is None:
+            return False
+        if self.title != other.title or \
+                self.problem != other.problem or \
+                self.solution != other.solution or \
+                self.outcome != other.outcode:
+            return False
+        cat1 = self.categories.all().order_by('id')
+        cat2 = other.categories.all().order_by('id')
+        sentinel = object()
+        return all(a == b for a, b in zip_longest(cat1, cat2, fillvalue=sentinel))
