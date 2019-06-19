@@ -1,0 +1,142 @@
+[
+  {
+    "model": "initiative.initiativecategory",
+    "pk": 1,
+    "fields": {
+      "name": "Transport and roads"
+    }
+  },
+  {
+    "model": "initiative.initiativecategory",
+    "pk": 2,
+    "fields": {
+      "name": "Natural resources and ecology"
+    }
+  },
+  {
+    "model": "initiative.initiativecategory",
+    "pk": 3,
+    "fields": {
+      "name": "City infrastructure"
+    }
+  },
+  {
+    "model": "initiative.initiativecategory",
+    "pk": 4,
+    "fields": {
+      "name": "Residential buildings and yards"
+    }
+  },
+  {
+    "model": "initiative.initiativecategory",
+    "pk": 5,
+    "fields": {
+      "name": "Security"
+    }
+  },
+  {
+    "model": "initiative.initiativecategory",
+    "pk": 6,
+    "fields": {
+      "name": "Business"
+    }
+  },
+  {
+    "model": "initiative.initiativecategory",
+    "pk": 7,
+    "fields": {
+      "name": "Consumers and service"
+    }
+  },
+  {
+    "model": "initiative.initiativecategory",
+    "pk": 8,
+    "fields": {
+      "name": "Officials and state services"
+    }
+  },
+  {
+    "model": "initiative.initiativecategory",
+    "pk": 9,
+    "fields": {
+      "name": "Population and migration"
+    }
+  },
+  {
+    "model": "initiative.initiativecategory",
+    "pk": 10,
+    "fields": {
+      "name": "Suffrage"
+    }
+  },
+  {
+    "model": "initiative.initiativecategory",
+    "pk": 11,
+    "fields": {
+      "name": "Economics and finance"
+    }
+  },
+  {
+    "model": "initiative.initiativecategory",
+    "pk": 12,
+    "fields": {
+      "name": "Health care"
+    }
+  },
+  {
+    "model": "initiative.initiativecategory",
+    "pk": 13,
+    "fields": {
+      "name": "Education and science"
+    }
+  },
+  {
+    "model": "initiative.initiativecategory",
+    "pk": 14,
+    "fields": {
+      "name": "Criminal Code"
+    }
+  },
+  {
+    "model": "initiative.initiativecategory",
+    "pk": 15,
+    "fields": {
+      "name": "Public administration"
+    }
+  },
+  {
+    "model": "initiative.initiativecategory",
+    "pk": 16,
+    "fields": {
+      "name": "Municipal services, Trust company, homeowners association"
+    }
+  },
+  {
+    "model": "initiative.initiativecategory",
+    "pk": 17,
+    "fields": {
+      "name": "Governmental support"
+    }
+  },
+  {
+    "model": "initiative.initiativecategory",
+    "pk": 18,
+    "fields": {
+      "name": "Labor and employment"
+    }
+  },
+  {
+    "model": "initiative.initiativecategory",
+    "pk": 19,
+    "fields": {
+      "name": "Social protection"
+    }
+  },
+  {
+    "model": "initiative.initiativecategory",
+    "pk": 20,
+    "fields": {
+      "name": "Religion"
+    }
+  }
+]
