@@ -25,11 +25,13 @@ class ShowInitiativeView(View):
                 break
 
         version = lang_obj.last_version if lang_obj else None
+        old_versions = lang_obj and lang_obj.versions.order_by('-id')
 
         problem = version and mark_safe(bleach.clean(version.problem, tags=bleach.sanitizer.ALLOWED_TAGS + ['p']))
         solution = version and mark_safe(bleach.clean(version.solution, tags=bleach.sanitizer.ALLOWED_TAGS + ['p']))
         outcome = version and mark_safe(bleach.clean(version.outcome, tags=bleach.sanitizer.ALLOWED_TAGS + ['p']))
         return render(request, 'initiative/view.html', {'version': version,
+                                                        'old_versions': old_versions,
                                                         'problem': problem,
                                                         'solution': solution,
                                                         'outcome': outcome})

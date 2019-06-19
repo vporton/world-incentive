@@ -1,5 +1,5 @@
 from itertools import zip_longest
-from django.db import models
+from django.db import models, transaction
 from django.utils.translation import gettext as _
 from languages.fields import LanguageField
 
@@ -45,28 +45,26 @@ class Initiative(models.Model):
     def add_version(self, version, language):
         """Return `True` if a new version was created."""
         lang_obj, _ = InitiativeLanguage.objects.get_or_create(initiative=self, language=language)
-        last_version = lang_obj.versions.all().order_by('id').last()
-        if version == last_version:
+        if version == lang_obj.last_version:
             return False
         else:
-            version.initiative = self
-            version.initiative_language = lang_obj
-            version.save()
+            with transaction.atomic():
+                version.initiative = self
+                version.initiative_language = lang_obj
+                version.save()
+                lang_obj.last_version = version
             return True
 
 
 class InitiativeLanguage(models.Model):
     initiative = models.ForeignKey(Initiative, on_delete=models.CASCADE, related_name='languages')
     language = LanguageField(db_index=True)
+    last_version = models.ForeignKey('InitiativeVersion', null=True, on_delete=models.SET_NULL)
 
     class Meta:
         constraints = [
             models.UniqueConstraint(fields=['initiative', 'language'], name='unique_initiative_language'),
         ]
-
-    @property
-    def last_version(self):
-        return self.versions.all().order_by('id').last()
 
     @property
     def language_name(self):

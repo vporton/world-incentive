@@ -41,4 +41,40 @@
 
 {% endif %}
 
+<h3>In other languages</h3>
+
+{% if version.languages|length > 1 %}
+    <ul>
+    {% for lang in version.languages %}
+        <li>
+        {% if lang != version.language %}
+            <a href="{% url 'initiative:view' version.initiative.pk %}?lang={{ lang.language }}"
+                   lang="{{ lang.language }}">{{ lang.last_version }}</a>
+                ({{ lang.language_name }})
+        {% endif %}
+        </li>
+    {% endfor %}
+    </ul>
+{% else %}
+    <p>None</p>
+{% endif %}
+
+<h3>Old versions</h3>
+
+{% if old_versions %}
+    <ul>
+    {% for old in old_versions %}
+        <li>
+            <a href="{% url 'initiative:view' version.initiative_language.initiative.pk %}?lang={{ version.initiative_language.language }}"
+                   lang="{{ version.initiative_language.language }}">{{ old }}</a>
+            {% if old.pk == version.pk %}
+                (current)
+            {% endif %}
+        </li>
+    {% endfor %}
+    </ul>
+{% else %}
+    <p>None</p>
+{% endif %}
+
 {% endblock %}
