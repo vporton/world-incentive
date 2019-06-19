@@ -1,7 +1,8 @@
 import bleach
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.core.paginator import Paginator
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import render, get_object_or_404, redirect
+from django.urls import reverse
 from django.utils.safestring import mark_safe
 from django.utils.translation import get_language_from_request
 from django.views import View
@@ -104,5 +105,25 @@ class CreateInitiativeView(LoginRequiredMixin, View):
     def post(self, request):
         form = InitiativeForm(request.POST)
         form.fields['editor'] = request.user
-        form.save()
-        return render(request, 'initiative/initiative-form.html', {'form': form})  # FIXME
+        initiative = form.save()
+        return redirect(reverse('initiative:view', initiative.pk) + '?lang=' + form.fields['language'])
+
+
+class EditInitiativeView(LoginRequiredMixin, View):
+    def get(self, request, initiative_pk):
+        initiative = get_object_or_404(Initiative, pk=initiative_pk)
+        version = initiative.last_version  # FIXME: language
+        if request.GET.get('translate'):
+            version.language = ''
+            version.title = ""
+            version.problem = ""
+            version.solution = ""
+            version.outcome = ""
+        form = InitiativeForm(instance=version)
+        return render(request, 'initiative/initiative-form.html', {'form': form})
+
+    def post(self, request):
+        form = InitiativeForm(request.POST)
+        form.fields['editor'] = request.user
+        initiative = form.save()
+        return redirect(reverse('initiative:view', initiative.pk) + '?lang=' + form.fields['language'])

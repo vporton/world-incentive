@@ -9,4 +9,5 @@ urlpatterns = [
     path('list', views.ListInitiativeView.as_view(), name='list'),
     path('create-prompt', views.CreateInitiativePromptView.as_view(), name='create-prompt'),
     path('create', views.CreateInitiativeView.as_view(), name='create'),
+    path('edit/<int:initiative_pk>', views.EditInitiativeView.as_view(), name='edit'),
 ]

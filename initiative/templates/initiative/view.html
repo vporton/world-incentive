@@ -39,7 +39,9 @@
         <p><b>Created:</b> {{ version.initiative_language.initiative.created }} UTC</p>
 
         <nav>
-            <p><a href="#">Add new version or translate to another language.</a></p>
+            <p><a href="{% url 'initiative:edit' version.initiative_language.initiative.pk %}">Add new version</a> |
+                <a target="_blank" href="{% url 'initiative:edit' version.initiative_language.initiative.pk %}?translate=1"
+                >Translate to another language</a></p>
         </nav>
 
     </section>

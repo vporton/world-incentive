@@ -99,6 +99,7 @@ class InitiativeVersion(models.Model):
     solution = models.TextField(blank=False)
     outcome = models.TextField(blank=False)
 
+    # FIXME: Move to Initiative
     categories = models.ManyToManyField(InitiativeCategory)
 
     def __str__(self):
