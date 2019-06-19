@@ -1,7 +1,6 @@
 from cities.models import Country
 from django import forms
 from django.forms import widgets
-from django.utils.functional import cached_property
 from languages.forms import LanguageField
 
 
@@ -12,11 +11,7 @@ class PlaceWidget(widgets.MultiWidget):
         js = ('js/placewidget.js',)
 
     def __init__(self, attrs=None):
-        super().__init__([], attrs)
-
-    @cached_property
-    def widgets(self):
-        return (
+        _widgets = (
             widgets.Select(choices=[('', '-')] + [(c.pk, c.name) for c in Country.objects.all().order_by('name')],
                            attrs={'onchange': "update_places_list(1)", **(attrs or {})}),
             widgets.Select(choices=[('', '-')],
@@ -27,6 +22,7 @@ class PlaceWidget(widgets.MultiWidget):
                            attrs={'onchange': "update_places_list(4)", **(attrs or {})}),
             widgets.Select(choices=[('', '-')])
         )
+        super().__init__(_widgets, attrs)
 
     def decompress(self, value):
         if value:
