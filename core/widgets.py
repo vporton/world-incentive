@@ -1,5 +1,7 @@
 from cities.models import Country
 from django import forms
+from django.apps import apps
+from django.db import ProgrammingError
 from django.forms import widgets
 from languages.forms import LanguageField
 
@@ -11,8 +13,14 @@ class PlaceWidget(widgets.MultiWidget):
         js = ('js/placewidget.js',)
 
     def __init__(self, attrs=None):
+        countries = [('', '-')]
+        try:
+            countries += [(c.pk, c.name) for c in Country.objects.all().order_by('name')]
+        except ProgrammingError:  # not yet migrated (e.g. during migration)
+            pass
         _widgets = (
-            widgets.Select(choices=[('', '-')] + [(c.pk, c.name) for c in Country.objects.all().order_by('name')],
+            widgets.Select(choices=countries
+                           ,
                            attrs={'onchange': "update_places_list(1)", **(attrs or {})}),
             widgets.Select(choices=[('', '-')],
                            attrs={'onchange': "update_places_list(2)", **(attrs or {})}),

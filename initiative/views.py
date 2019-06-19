@@ -1,3 +1,4 @@
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.http import HttpResponse
 from django.shortcuts import render
 from django.utils.translation import get_language_from_request
@@ -7,14 +8,14 @@ from django.utils.translation import gettext as _
 from initiative.forms import CreateInitiativePromptForm, InitiativeForm
 
 
-class CreateInitiativePromptView(View):
+class CreateInitiativePromptView(LoginRequiredMixin, View):
     def get(self, request):
         language = get_language_from_request(request)
         form = CreateInitiativePromptForm(initial={'language': language})
         return render(request, 'initiative/create-initiative-prompt.html', {'form': form})
 
 
-class CreateInitiativeView(View):
+class CreateInitiativeView(LoginRequiredMixin, View):
     def get(self, request):
         language = request.GET.get('language', 'en')
         form = InitiativeForm(initial={'language': language})

@@ -138,5 +138,12 @@
     "fields": {
       "name": "Religion"
     }
+  },
+  {
+    "model": "initiative.initiativecategory",
+    "pk": 21,
+    "fields": {
+      "name": "Technology"
+    }
   }
 ]
