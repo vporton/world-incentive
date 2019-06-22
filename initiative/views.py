@@ -9,7 +9,7 @@ from django.views import View
 from django.utils.translation import gettext as _
 
 from initiative.forms import CreateInitiativePromptForm, InitiativeForm
-from initiative.models import InitiativeLanguage, InitiativeVersion, Initiative
+from initiative.models import InitiativeLanguage, InitiativeVersion, Initiative, InitiativeCategory
 
 
 class ShowInitiativeView(View):
@@ -63,13 +63,16 @@ class ListInitiativeView(View):
 
         versions = (i.version_in_specified_languages(language_codes) for i in initiatives)
 
+        all_categories = InitiativeCategory.objects.all()
+
         # Remove duplicate content
         # nofollow = not InitiativeLanguage.objects.filter(language__in=language_codes).exists()
 
         return render(request, 'initiative/list.html',
                       {'versions': versions,
                        'paginator': paginator,
-                       'page_obj': initiatives})
+                       'page_obj': initiatives,
+                       'all_categories': all_categories})
 
 
 class ShowInitiativeVersionView(View):

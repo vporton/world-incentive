@@ -1,3 +1,7 @@
 <div id="cats-filter">
-    XXX
+    <ul>
+        {% for cat in all_categories %}
+            <li><label><input type="checkbox" value="{{ cat.pk }}" /> {{ cat }}</label></li>
+        {% endfor %}
+    </ul>
 </div>
