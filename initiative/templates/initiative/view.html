@@ -74,7 +74,7 @@
         <li>
         {% if lang != version.language %}
             <a href="{% url 'initiative:view' version.initiative.pk %}?lang={{ lang.language }}"
-                   lang="{{ lang.language }}">{{ lang.last_version }}</a>
+               lang="{{ lang.language }}">{{ lang.last_version }}</a>
                 ({{ lang.language_name }})
         {% endif %}
         </li>
