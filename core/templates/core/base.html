@@ -1,5 +1,4 @@
 {% load bootstrap3 %}
-{% load bootstrap3 %}
 {% load static %}
 
 <!DOCTYPE html>
@@ -12,6 +11,7 @@
   src="https://code.jquery.com/jquery-3.3.1.min.js"
   integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
   crossorigin="anonymous"></script>
+  {# <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script> #}
   {% bootstrap_css %}
   {% bootstrap_javascript %}
   <script src="{% static 'jquery-ui-1.12.1.custom/jquery-ui.min.js' %}"></script>
@@ -52,6 +52,12 @@
           <ul class="nav navbar-nav">
             <li><a href="{% url 'mainpage' %}">Home</a></li>
             <li><a href="{% url 'initiative:list' %}{% if user_languages != '' %}?lang={{ user_languages }}{% endif %}">Initiatives</a></li>
+            <li class="dropdown" id="filterDropdownMenuButton"><a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
+            >Filter <b class="caret"></b></a>
+                <div class="dropdown-menu" aria-labelledby="filterDropdownMenuButton">
+                    {% include 'initiative/cats-filter.html' %}
+                </div>
+            </li>
             <li><a href="#" onclick="return ajax_create_initiative_prompt('{% url 'initiative:create-prompt' %}');">Add initiative</a></li>
             <li><a href="/blog/" target="_blank">Blog</a></li>
           </ul>

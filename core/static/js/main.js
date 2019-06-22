@@ -39,6 +39,7 @@ $.ajaxSetup({
  }
 });
 
+/*
 (function($){
     $(document).ready(function(){
         $('ul.dropdown-menu [data-toggle=dropdown]').on('click', function(event) {
@@ -49,6 +50,7 @@ $.ajaxSetup({
         });
     });
 })(jQuery);
+*/
 
 function set_language(lang) {
     $.post('/core/set-language', {lang: lang}, function() {
