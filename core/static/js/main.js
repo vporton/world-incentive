@@ -89,3 +89,14 @@ function ajax_create_initiative_prompt(url) {
         width: 600
     });
 }
+
+function set_categories_filter() {
+    var cats = [];
+    $('#categoriesFilter').find(':checked').each(function (c) {
+        cats.push(c);
+    })
+    console.log(cats);
+    var url = new URL(location.href);
+    url.searchParams.set('cat', cats.join(','));
+    location.href = url.toString();
+}
