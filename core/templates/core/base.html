@@ -53,8 +53,14 @@
             <li><a href="{% url 'mainpage' %}">Home</a></li>
             <li><a href="{% url 'initiative:list' %}{% if user_languages != '' %}?lang={{ user_languages }}{% endif %}">Initiatives</a></li>
           {% if is_initiatives_list %}
-            <li class="dropdown" id="filterDropdownMenuButton"><a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
-            >Filter <b class="caret"></b></a>
+            <li class="dropdown" id="filterDropdownMenuButton">
+                <a href="#"
+                   class="dropdown-toggle"
+                   data-toggle="dropdown"
+                   aria-haspopup="true"
+                   aria-expanded="false"
+                   {% if categories %}style="color: red"{% endif %}
+                >Filter <b class="caret"></b></a>
                 <div class="dropdown-menu" aria-labelledby="filterDropdownMenuButton" onclick="event.stopPropagation()">
                     {% include 'initiative/cats-filter.html' %}
                 </div>
