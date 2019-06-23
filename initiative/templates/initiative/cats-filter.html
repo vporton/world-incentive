@@ -1,7 +1,17 @@
 <div id="cats-filter">
-    <ul>
+    <div class="container" style="width: 600px">
         {% for cat in all_categories %}
-            <li><label><input type="checkbox" value="{{ cat.pk }}" /> {{ cat }}</label></li>
+            {% cycle '<div class="row">' '' %}
+                <div class="col-xs-6">
+                    <label>
+                        <input type="checkbox"
+                               value="{{ cat.pk }}"
+                               {% if cat.pk in categories %}checked="checked"{% endif %}/>
+                        {{ cat }}
+                    </label>
+                </div>
+            {% cycle '' '</div>' %}
         {% endfor %}
-    </ul>
+    </div>
+    <input type="button" value="Apply filter" />
 </div>

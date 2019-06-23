@@ -101,7 +101,7 @@
     "model": "initiative.initiativecategory",
     "pk": 16,
     "fields": {
-      "name": "Municipal services, trust company, homeowners association"
+      "name": "Municipal, trust company, homeowners"
     }
   },
   {

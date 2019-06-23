@@ -32,6 +32,8 @@ class Initiative(models.Model):
     place = core.models.PlaceField()
     # level = models.SmallIntegerField(_("Initiative level"))  # core.RegionLevel
 
+    categories = models.ManyToManyField(InitiativeCategory)
+
     votes_for = models.BigIntegerField(_("Votes for"), default=0)
     votes_against = models.BigIntegerField(_("Votes against"), default=0)
 
@@ -98,9 +100,6 @@ class InitiativeVersion(models.Model):
     problem = models.TextField(blank=False)
     solution = models.TextField(blank=False)
     outcome = models.TextField(blank=False)
-
-    # FIXME: Move to Initiative
-    categories = models.ManyToManyField(InitiativeCategory)
 
     def __str__(self):
         return self.title

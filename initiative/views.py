@@ -1,6 +1,7 @@
 import bleach
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.core.paginator import Paginator
+from django.http import HttpResponse
 from django.shortcuts import render, get_object_or_404, redirect
 from django.urls import reverse
 from django.utils.safestring import mark_safe
@@ -47,6 +48,10 @@ class ListInitiativeView(View):
         categories = cat.split(',')
         if categories == ['']:
             categories = []
+        try:
+            categories = [int(c) for c in categories]
+        except ValueError:
+            return HttpResponse(_("Invalid parameter 'cat'."), status=400)
 
         if language_codes == []:
             lang_code = get_language_from_request(request, check_path=True)
@@ -72,6 +77,7 @@ class ListInitiativeView(View):
                       {'versions': versions,
                        'paginator': paginator,
                        'page_obj': initiatives,
+                       'categories': categories,
                        'all_categories': all_categories})
 
 
