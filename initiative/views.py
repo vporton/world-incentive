@@ -66,7 +66,8 @@ class ListInitiativeView(View):
         page = request.GET.get('page')
         initiatives = paginator.get_page(page)
 
-        versions = (i.version_in_specified_languages(language_codes) for i in initiatives)
+        # Without list(), version|length in template does not work
+        versions = list(i.version_in_specified_languages(language_codes) for i in initiatives)
 
         all_categories = InitiativeCategory.objects.all()
 
