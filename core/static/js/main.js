@@ -95,8 +95,13 @@ function set_categories_filter() {
     $('#categoriesFilter').find(':checked').each(function (c) {
         cats.push(c);
     })
-    console.log(cats);
     var url = new URL(location.href);
     url.searchParams.set('cat', cats.join(','));
+    location.href = url.toString();
+}
+
+function clear_categories_filter() {
+    var url = new URL(location.href);
+    url.searchParams.delete('cat');
     location.href = url.toString();
 }
