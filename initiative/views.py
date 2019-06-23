@@ -75,7 +75,8 @@ class ListInitiativeView(View):
         # nofollow = not InitiativeLanguage.objects.filter(language__in=language_codes).exists()
 
         return render(request, 'initiative/list.html',
-                      {'versions': versions,
+                      {'is_initiatives_list': True,
+                       'versions': versions,
                        'paginator': paginator,
                        'page_obj': initiatives,
                        'categories': categories,
