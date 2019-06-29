@@ -24,9 +24,13 @@ class BaseShowInitiativeView(View):
         old_versions = lang_obj and lang_obj.versions.order_by('-id')
 
         vote_form = VoteForm(initial={'vote': {'request': request,
+                                               'pool': 'main',
+                                               'initiative_pk': initiative.pk,
                                                'for': initiative.votes_for,
                                                'against': initiative.votes_against},
                                       'vote_being_spam': {'request': request,
+                                                          'pool': 'spam',
+                                                          'initiative_pk': initiative.pk,
                                                           'for': initiative.votes_for_being_spam,
                                                           'against': initiative.votes_against_being_spam}})
 
@@ -145,3 +149,25 @@ class EditInitiativeView(LoginRequiredMixin, View):
         form.fields['editor'] = request.user
         initiative = form.save()
         return redirect(reverse('initiative:view', initiative.pk) + '?lang=' + form.fields['language'])
+
+
+class AjaxVoteView(View):
+    def post(self, request, pool, against, reclaim, initiative_pk):
+        initiative = get_object_or_404(Initiative, pk=initiative_pk)
+        if pool == 'main':
+            if against:
+                (initiative.votes_against.remove if reclaim \
+                     else initiative.votes_against.add)(request.user)
+            else:
+                (initiative.votes_for.remove if reclaim \
+                     else initiative.votes_for.add)(request.user)
+        elif pool == 'spam':
+            if against:
+                (initiative.votes_against_being_spam.remove if reclaim \
+                     else initiative.votes_against_being_spam.add)(request.user)
+            else:
+                (initiative.votes_for_being_spam.remove if reclaim \
+                     else initiative.votes_for_being_spam.add)(request.user)
+        else:
+            return HttpResponse("Bad voting pool.", status=400)  # Don't translate.
+        return HttpResponse('ok')

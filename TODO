@@ -17,3 +17,5 @@
 * Performance of filtering.
 
 * https://docs.djangoproject.com/en/2.2/ref/contrib/sitemaps/
+
+* Canceling for/against on another direction vote.

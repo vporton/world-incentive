@@ -3,6 +3,10 @@
 {% block title %}Initiative {{version.title}}{% endblock %}
 {% block header %}{{version.title}}{% endblock %}
 
+{% block scripts %}
+{{ vote_form.media }}
+{% endblock %}
+
 {% block moreheader %}
     {% if is_last_version %}
         <link rel="canonical"

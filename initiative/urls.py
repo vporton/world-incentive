@@ -10,4 +10,5 @@ urlpatterns = [
     path('create-prompt', views.CreateInitiativePromptView.as_view(), name='create-prompt'),
     path('create', views.CreateInitiativeView.as_view(), name='create'),
     path('edit/<int:initiative_pk>', views.EditInitiativeView.as_view(), name='edit'),
+    path('ajax-vote/<str:pool>:<int:against>:<int:reclaim>/<int:initiative_pk>', views.AjaxVoteView.as_view(), name='vote')
 ]
