@@ -127,7 +127,7 @@ class CreateInitiativeView(LoginRequiredMixin, View):
             return render(request, 'initiative/initiative-form.html',
                           {'form': form, 'title': _("Create Initiative")})
         initiative = form.save()
-        return redirect(reverse('initiative:view', initiative.pk) + '?lang=' + form.fields['language'])
+        return redirect(reverse('initiative:view', args=[initiative.pk]) + '?lang=' + form.cleaned_data['language'])
 
 
 class EditInitiativeView(LoginRequiredMixin, View):
@@ -148,7 +148,7 @@ class EditInitiativeView(LoginRequiredMixin, View):
             return render(request, 'initiative/initiative-form.html',
                           {'form': form, 'title': _("Edit Initiative")})
         initiative = form.save()
-        return redirect(reverse('initiative:view', initiative.pk) + '?lang=' + form.fields['language'])
+        return redirect(reverse('initiative:view', args=[initiative.pk]) + '?lang=' + form.cleaned_data['language'])
 
 
 class TranslateInitiativeView(LoginRequiredMixin, View):
@@ -171,7 +171,7 @@ class TranslateInitiativeView(LoginRequiredMixin, View):
             return render(request, 'initiative/initiative-form.html',
                           {'form': form, 'title': _("Translate Initiative")})
         initiative = form.save()
-        return redirect(reverse('initiative:view', initiative.pk) + '?lang=' + form.fields['language'])
+        return redirect(reverse('initiative:view', args=[initiative.pk]) + '?lang=' + form.cleaned_data['language'])
 
 
 class AjaxVoteView(View):
