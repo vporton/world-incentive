@@ -1,5 +1,11 @@
 <nav>
-    <p>{{ vote_for_text }}: {{ widget.value.votes_for }} <span>+ my vote (<a href="#">reclaim</a>)</span> |
-        {{ vote_against_text }}: {{ widget.value.votes_against }} <span>+ my vote (<a href="#">reclaim</a>)</span>
+    <p>{{ vote_for_text }}:
+        {{ widget.value.votes_for }}
+        <span{% if widget.value.myself_for %} style="display: none"{% endif %}> (<a href="#">vote</a>)</span>
+        <span{% if not widget.value.myself_for %} style="display: none"{% endif %}> + my vote (<a href="#">reclaim</a>)</span> |
+        {{ vote_against_text }}:
+        {{ widget.value.votes_against }}
+        <span{% if widget.value.myself_against %} style="display: none"{% endif %}> (<a href="#">vote</a>)</span>
+        <span{% if not widget.value.myself_against %} style="display: none"{% endif %}> + my vote (<a href="#">reclaim</a>)</span>
     </p>
 </nav>

@@ -16,15 +16,18 @@ from initiative.models import InitiativeLanguage, InitiativeVersion, Initiative,
 class BaseShowInitiativeView(View):
     def do_get(self, request, version, is_last_version, lang, lang_obj):
         problem = version and mark_safe(bleach.clean(version.problem, tags=bleach.sanitizer.ALLOWED_TAGS + ['p', 'br']))
-        solution = version and mark_safe(bleach.clean(version.solution, tags=bleach.sanitizer.ALLOWED_TAGS + ['p', 'br']))
+        solution = version and mark_safe(
+            bleach.clean(version.solution, tags=bleach.sanitizer.ALLOWED_TAGS + ['p', 'br']))
         outcome = version and mark_safe(bleach.clean(version.outcome, tags=bleach.sanitizer.ALLOWED_TAGS + ['p', 'br']))
 
         initiative = version.initiative_language.initiative
         old_versions = lang_obj and lang_obj.versions.order_by('-id')
 
-        vote_form = VoteForm(initial={'vote': {'for': initiative.votes_for,
+        vote_form = VoteForm(initial={'vote': {'request': request,
+                                               'for': initiative.votes_for,
                                                'against': initiative.votes_against},
-                                      'vote_being_spam': {'for': initiative.votes_for_being_spam,
+                                      'vote_being_spam': {'request': request,
+                                                          'for': initiative.votes_for_being_spam,
                                                           'against': initiative.votes_against_being_spam}})
 
         return render(request, 'initiative/view.html', {'version': version,

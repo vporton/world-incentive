@@ -61,10 +61,10 @@ class InitiativeForm(forms.ModelForm):
         return version
 
 class VoteForm(forms.Form):
-    vote = VoteField(widget=VoteWidget(vote_for_text=_("Vote for"),
-                                       vote_against_text=_("Vote against")))
-    vote_being_spam = VoteField(widget=VoteWidget(vote_for_text=_("Vote for being SPAM"),
-                                vote_against_text=_("Vote for against SPAM")))
+    vote = VoteField(widget=VoteWidget(vote_for_text=_("Votes for"),
+                                       vote_against_text=_("Votes against")))
+    vote_being_spam = VoteField(widget=VoteWidget(vote_for_text=_("Votes for being SPAM"),
+                                vote_against_text=_("Votes against being SPAM")))
 
     def __init__(self, *args, initial=None, **kwargs):
         initial2 = initial.copy() if initial is not None else {}
@@ -73,5 +73,18 @@ class VoteForm(forms.Form):
         return super().__init__(*args, initial2, **kwargs)
 
     def rectify_field(self, initial, initial2, field_name):
-        initial2[field_name]['votes_for'] = initial[field_name]['for'].count()
-        initial2[field_name]['votes_against'] = initial[field_name]['against'].count()
+        with transaction.atomic():
+            votes_for = initial[field_name]['for'].count()
+            votes_against = initial[field_name]['against'].count()
+            myself_for = initial[field_name]['request'].user in initial[field_name]['for'].all()
+            myself_against = initial[field_name]['request'].user in initial[field_name]['against'].all()
+
+        if myself_for:
+            votes_for -= 1
+        if myself_against:
+            votes_against -= 1
+
+        initial2[field_name]['votes_for'] = votes_for
+        initial2[field_name]['votes_against'] = votes_against
+        initial2[field_name]['myself_for'] = myself_for
+        initial2[field_name]['myself_against'] = myself_against
