@@ -126,8 +126,8 @@ class CreateInitiativeView(LoginRequiredMixin, View):
         except ValueError:
             return render(request, 'initiative/initiative-form.html',
                           {'form': form, 'title': _("Create Initiative")})
-        initiative = form.save()
-        return redirect(reverse('initiative:view', args=[initiative.pk]) + '?lang=' + form.cleaned_data['language'])
+        version = form.save()  # FIXME: Here and below use add_version().
+        return redirect(reverse('initiative:view', args=[version.initiative_language.initiative.pk]) + '?lang=' + form.cleaned_data['language'])
 
 
 class EditInitiativeView(LoginRequiredMixin, View):
@@ -147,8 +147,8 @@ class EditInitiativeView(LoginRequiredMixin, View):
         except ValueError as e:
             return render(request, 'initiative/initiative-form.html',
                           {'form': form, 'title': _("Edit Initiative")})
-        initiative = form.save()
-        return redirect(reverse('initiative:view', args=[initiative.pk]) + '?lang=' + form.cleaned_data['language'])
+        version = form.save()
+        return redirect(reverse('initiative:view', args=[version.initiative_language.initiative.pk]) + '?lang=' + form.cleaned_data['language'])
 
 
 class TranslateInitiativeView(LoginRequiredMixin, View):
@@ -170,8 +170,8 @@ class TranslateInitiativeView(LoginRequiredMixin, View):
         except ValueError:
             return render(request, 'initiative/initiative-form.html',
                           {'form': form, 'title': _("Translate Initiative")})
-        initiative = form.save()
-        return redirect(reverse('initiative:view', args=[initiative.pk]) + '?lang=' + form.cleaned_data['language'])
+        version = form.save()
+        return redirect(reverse('initiative:view', args=[version.initiative_language.initiative.pk]) + '?lang=' + form.cleaned_data['language'])
 
 
 class AjaxVoteView(View):
