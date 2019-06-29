@@ -63,12 +63,15 @@ class InitiativeForm(forms.ModelForm):
 class VoteForm(forms.Form):
     vote = VoteField(widget=VoteWidget(vote_for_text=_("Vote for"),
                                        vote_against_text=_("Vote against")))
+    vote_being_spam = VoteField(widget=VoteWidget(vote_for_text=_("Vote for being SPAM"),
+                                vote_against_text=_("Vote for against SPAM")))
 
     def __init__(self, *args, initial=None, **kwargs):
         initial2 = initial.copy() if initial is not None else {}
-        self.rectify_field(initial, initial2, 'vote')
+        for field_name in 'vote', 'vote_being_spam':
+            self.rectify_field(initial, initial2, field_name)
         return super().__init__(*args, initial2, **kwargs)
 
     def rectify_field(self, initial, initial2, field_name):
-        initial2['vote']['votes_for'] = initial['vote']['m2m_field'].votes_for.count()
-        initial2['vote']['votes_against'] = initial['vote']['m2m_field'].votes_against.count()
+        initial2[field_name]['votes_for'] = initial[field_name]['for'].count()
+        initial2[field_name]['votes_against'] = initial[field_name]['against'].count()

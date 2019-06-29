@@ -39,6 +39,7 @@
         <p><b>Created:</b> {{ version.initiative_language.initiative.created }} UTC</p>
 
         {{ vote_form.vote }}
+        {{ vote_form.vote_being_spam }}
 
         <nav>
             <p><a href="{% url 'initiative:edit' version.initiative_language.initiative.pk %}">Add new version</a> |

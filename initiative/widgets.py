@@ -12,9 +12,8 @@ class VoteWidget(widgets.Widget):
     def format_value(self, value):
         return value
 
-    # def get_context(self, name, value, attrs):
-    #     d = super().get_context(name, value, attrs)
-    #     d2 = d.copy() if d is not None else {}
-    #     d2['votes_for'] = self.votes_for
-    #     d2['votes_against'] = self.votes_against
-    #     return d2
+    def get_context(self, name, value, attrs):
+        context = super().get_context(name, value, attrs)
+        context['vote_for_text'] = self.vote_for_text
+        context['vote_against_text'] = self.vote_against_text
+        return context
