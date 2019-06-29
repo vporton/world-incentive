@@ -1,6 +1,6 @@
-from datetime import datetime
 from itertools import zip_longest
 from django.db import models, transaction
+from django.utils import timezone
 from django.utils.translation import gettext as _
 from languages.fields import LanguageField
 
@@ -47,10 +47,9 @@ class Initiative(models.Model):
                                                       verbose_name=_("Votes against being SPAM"),
                                                       related_name='voters_against_being_spam')
 
-    @property
     def last_version(self, language):
         try:
-            lang_obj = self.initiativelanguage.get(language=language)
+            lang_obj = self.languages.get(language=language)
         except InitiativeLanguage.DoesNotExist:
             return None
         return lang_obj.last_version
@@ -66,7 +65,7 @@ class Initiative(models.Model):
                 version.initiative_language = lang_obj
                 version.save()
                 lang_obj.last_version = version
-                self.updated = datetime.datetime.now()
+                self.updated = timezone.now()
             return True
 
     def first_of_specified_languages(self, language_codes):

@@ -22,7 +22,8 @@ class CreateInitiativePromptForm(forms.Form):
 class InitiativeForm(forms.ModelForm):
     required_css_class = 'required'
 
-    initiative = forms.IntegerField(widget=forms.HiddenInput(), required=False)
+    # editor = forms.IntegerField(widget=forms.HiddenInput(), required=True)
+    initiative = forms.ModelChoiceField(widget=forms.HiddenInput(), queryset=Initiative.objects.all(), required=False)
     language = LanguageField(choices=languages.languages.LANGUAGES,
                              label=_("Initiative language"),
                              help_text=_("More languages can be added later."))
@@ -34,13 +35,21 @@ class InitiativeForm(forms.ModelForm):
 
     class Meta:
         model = InitiativeVersion
-        fields = ['initiative',
+        fields = ['editor',
+                  'initiative',
                   'language',
                   'place',
                   'title',
                   'problem',
                   'solution',
                   'outcome']
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.fields['editor'].widget = forms.HiddenInput()
+        self.fields['editor'].required = True
+        # self.fields['initiative'].widget = forms.HiddenInput()
+        # self.fields['initiative'].required = False
 
     def save(self, commit=True):
         version = super().save(commit=False)
@@ -55,10 +64,11 @@ class InitiativeForm(forms.ModelForm):
                 if initiative.add_version(version, self.cleaned_data['language']):
                     try:
                         for category in self.cleaned_data['categories']:
-                            InitiativeLanguage.objects.create(initiative=version, category=category)
+                            initiative.categories.add(category)
                     except IntegrityError as e:
                         raise ValidationError(e)
         return version
+
 
 class VoteForm(forms.Form):
     vote = VoteField(widget=VoteWidget(vote_for_text=_("Votes for"),

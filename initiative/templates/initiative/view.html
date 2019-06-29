@@ -40,14 +40,16 @@
             {% endif %}
         </p>
 
+        <p><b>Categories:</b> {% for c in categories %}{{ c }}{% if not forloop.last %}; {% endif %}{% empty %}none{% endfor %}</p>
+
         <p><b>Created:</b> {{ version.initiative_language.initiative.created }} UTC</p>
 
         {{ vote_form.vote }}
         {{ vote_form.vote_being_spam }}
 
         <nav>
-            <p><a href="{% url 'initiative:edit' version.initiative_language.initiative.pk %}">Add new version</a> |
-                <a target="_blank" href="{% url 'initiative:edit' version.initiative_language.initiative.pk %}?translate=1"
+            <p><a href="{% url 'initiative:edit' version.initiative_language.initiative.pk version.initiative_language.language %}">Add new version</a> |
+                <a target="_blank" href="{% url 'initiative:translate' version.initiative_language.initiative.pk %}"
                 >Translate to another language</a></p>
         </nav>
 

@@ -1,6 +1,7 @@
 import bleach
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.core.paginator import Paginator
+from django.forms import HiddenInput
 from django.http import HttpResponse
 from django.shortcuts import render, get_object_or_404, redirect
 from django.urls import reverse
@@ -30,6 +31,7 @@ class BaseShowInitiativeView(View):
                                                         'problem': problem,
                                                         'solution': solution,
                                                         'outcome': outcome,
+                                                        'categories': initiative.categories.all(),
                                                         'is_last_version': is_last_version,
                                                         'lang': lang,
                                                         'vote_form': vote_form})
@@ -113,31 +115,61 @@ class CreateInitiativeView(LoginRequiredMixin, View):
     def get(self, request):
         language = request.GET.get('language', 'en')
         form = InitiativeForm(initial={'language': language})
-        return render(request, 'initiative/initiative-form.html', {'form': form})
+        return render(request, 'initiative/initiative-form.html', {'form': form, 'title': _("Create Initiative")})
 
     def post(self, request):
-        form = InitiativeForm(request.POST)
-        form.fields['editor'] = request.user
+        data = request.POST.copy()
+        data['editor'] = request.user.pk
+        form = InitiativeForm(data)
+        try:
+            form.full_clean()
+        except ValueError:
+            return render(request, 'initiative/initiative-form.html',
+                          {'form': form, 'title': _("Create Initiative")})
         initiative = form.save()
         return redirect(reverse('initiative:view', initiative.pk) + '?lang=' + form.fields['language'])
 
 
 class EditInitiativeView(LoginRequiredMixin, View):
+    def get(self, request, initiative_pk, language):
+        initiative = get_object_or_404(Initiative, pk=initiative_pk)
+        version = initiative.last_version(language)
+        form = InitiativeForm(instance=version, initial={'language': language})
+        return render(request, 'initiative/initiative-form.html',
+                      {'form': form, 'title': _("Edit initiative")})
+
+    def post(self, request, initiative_pk, language):
+        data = request.POST.copy()
+        data['editor'] = request.user.pk
+        form = InitiativeForm(data)
+        try:
+            form.full_clean()
+        except ValueError as e:
+            return render(request, 'initiative/initiative-form.html',
+                          {'form': form, 'title': _("Edit Initiative")})
+        initiative = form.save()
+        return redirect(reverse('initiative:view', initiative.pk) + '?lang=' + form.fields['language'])
+
+
+class TranslateInitiativeView(LoginRequiredMixin, View):
     def get(self, request, initiative_pk):
         initiative = get_object_or_404(Initiative, pk=initiative_pk)
-        version = initiative.last_version  # FIXME: language
-        if request.GET.get('translate'):
-            version.language = ''
-            version.title = ""
-            version.problem = ""
-            version.solution = ""
-            version.outcome = ""
-        form = InitiativeForm(instance=version)
-        return render(request, 'initiative/initiative-form.html', {'form': form})
+        version = InitiativeVersion()
+        form = InitiativeForm(instance=version, initial={'initiative': initiative})
+        form.fields['categories'].widget = HiddenInput()
+        return render(request, 'initiative/initiative-form.html',
+                      {'form': form, 'title': _("Translate Initiative")})
 
-    def post(self, request):
-        form = InitiativeForm(request.POST)
-        form.fields['editor'] = request.user
+    # FIXME: Can only translate to a non-existing language.
+    def post(self, request, initiative_pk):
+        data = request.POST.copy()
+        data['editor'] = request.user.pk
+        form = InitiativeForm(data)
+        try:
+            form.full_clean()
+        except ValueError:
+            return render(request, 'initiative/initiative-form.html',
+                          {'form': form, 'title': _("Translate Initiative")})
         initiative = form.save()
         return redirect(reverse('initiative:view', initiative.pk) + '?lang=' + form.fields['language'])
 
