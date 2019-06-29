@@ -10,12 +10,10 @@
 
 * Creating a version of initiative to require captcha.
 
-* Voting for initiatives and voting for spamming a version.
+* SPAM filtering.
 
 * Filtering initiatives by place.
 
 * Performance of filtering.
 
 * https://docs.djangoproject.com/en/2.2/ref/contrib/sitemaps/
-
-* Canceling for/against on another direction vote.
