@@ -57,7 +57,7 @@ class LanguagesListWidget(forms.Widget):
 
     def get_context(self, name, value, attrs):
         d = super().get_context(name, value, attrs)
-        d2 = d.copy() if d is not None else []
+        d2 = d.copy() if d is not None else {}
         # attrs2 = attrs.copy() if attrs is not None else {}
         # attrs2['required'] = False
         # TODO: _("User language") and _("In order of preference")

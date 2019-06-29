@@ -7,6 +7,7 @@ import languages.languages
 from languages.forms import LanguageField
 
 from core.fields import PlaceFormField
+from initiative.fields import VoteField
 from initiative.models import InitiativeVersion, InitiativeCategory, InitiativeLanguage, Initiative
 from initiative.widgets import VoteWidget
 
@@ -60,4 +61,5 @@ class InitiativeForm(forms.ModelForm):
         return version
 
 class VoteForm(forms.Form):
-    vote = Field(widget=VoteWidget(vote_for_text=_("Vote for"), vote_against_text=_("Vote against")))
+    vote = VoteField(widget=VoteWidget(vote_for_text=_("Vote for"),
+                                       vote_against_text=_("Vote against")))
