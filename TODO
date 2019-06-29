@@ -15,3 +15,5 @@
 * Filtering initiatives by place.
 
 * Performance of filtering.
+
+* https://docs.djangoproject.com/en/2.2/ref/contrib/sitemaps/
