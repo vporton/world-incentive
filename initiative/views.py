@@ -22,9 +22,7 @@ class BaseShowInitiativeView(View):
         initiative = version.initiative_language.initiative
         old_versions = lang_obj and lang_obj.versions.order_by('-id')
 
-        vote_form = VoteForm(initial={'vote': {'votes_for': initiative.votes_for.count(),
-                                               'votes_against': initiative.votes_against.count()}})
-        # vote_form.fields['vote'].value =
+        vote_form = VoteForm(initial={'vote': {'m2m_field': initiative}})
 
         return render(request, 'initiative/view.html', {'version': version,
                                                         'old_versions': old_versions,

@@ -16,6 +16,5 @@ class VoteWidget(widgets.Widget):
     #     d = super().get_context(name, value, attrs)
     #     d2 = d.copy() if d is not None else {}
     #     d2['votes_for'] = self.votes_for
-
-    # def render(self, *args, **kwargs):
-    #     super().render(*args, **kwargs)
+    #     d2['votes_against'] = self.votes_against
+    #     return d2
