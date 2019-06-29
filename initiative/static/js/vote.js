@@ -3,8 +3,11 @@ function ajax_vote(pool, reclaim, initiative_pk, against, name) {
         '/initiative/ajax-vote/' +
             pool + ':' + (against ? 1 : 0) + ':' + (reclaim ? 1 : 0) + '/' + initiative_pk,
         function () {
-            $('#' + name + (reclaim ? '_reclaim_btn_id' : '_vote_btn_id')).css('display', 'none');
-            $('#' + name + (reclaim ? '_vote_btn_id' : '_reclaim_btn_id')).css('display', 'inline');
+            $('#' + name + (against ? '_against' : '_for') + (reclaim ? '_reclaim_btn_id' : '_vote_btn_id')).css('display', 'none');
+            $('#' + name + (against ? '_against' : '_for') + (reclaim ? '_vote_btn_id' : '_reclaim_btn_id')).css('display', 'inline');
+
+            $('#' + name + (against ? '_for' : '_against') + '_reclaim_btn_id').css('display', 'none');
+            $('#' + name + (against ? '_for' : '_against') + '_vote_btn_id').css('display', 'inline');
         });
     return false;
 }
