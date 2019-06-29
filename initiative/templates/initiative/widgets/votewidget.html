@@ -1,5 +1,5 @@
 <nav>
-    <p>{{ vote_for_text }}:
+    <p><strong>{{ vote_for_text }}:</strong>
         {{ widget.value.votes_for }}
         <span id="{{ widget.name }}_for_vote_btn_id"
                 {% if widget.value.myself_for %} style="display: none"{% endif %}>
@@ -9,7 +9,7 @@
                 {% if not widget.value.myself_for %} style="display: none"{% endif %}>
             + my vote (<a href="#"
                           onclick="return ajax_vote('{{ widget.value.pool }}', true, {{ widget.value.initiative_pk }}, false, '{{ widget.name }}')">reclaim</a>)</span> |
-        {{ vote_against_text }}:
+        <strong>{{ vote_against_text }}:</strong>
         {{ widget.value.votes_against }}
         <span id="{{ widget.name }}_against_vote_btn_id"
                 {% if widget.value.myself_against %} style="display: none"{% endif %}>
