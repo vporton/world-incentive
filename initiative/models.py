@@ -34,8 +34,18 @@ class Initiative(models.Model):
 
     categories = models.ManyToManyField(InitiativeCategory)
 
-    votes_for = models.BigIntegerField(_("Votes for"), default=0)
-    votes_against = models.BigIntegerField(_("Votes against"), default=0)
+    votes_for = models.ManyToManyField('user.User',
+                                       verbose_name=_("Votes for"),
+                                       related_name='voters_for')
+    votes_against = models.ManyToManyField('user.User',
+                                           verbose_name=_("Votes against"),
+                                           related_name='voters_against')
+    votes_for_being_spam = models.ManyToManyField('user.User',
+                                                  verbose_name=_("Votes for being SPAM"),
+                                                  related_name='voters_for_being_spam')
+    votes_against_being_spam = models.ManyToManyField('user.User',
+                                                      verbose_name=_("Votes against being SPAM"),
+                                                      related_name='voters_against_being_spam')
 
     @property
     def last_version(self, language):
