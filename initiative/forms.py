@@ -66,11 +66,22 @@ class VoteForm(forms.Form):
     vote_being_spam = VoteField(widget=VoteWidget(vote_for_text=_("Votes for being SPAM"),
                                 vote_against_text=_("Votes against being SPAM")))
 
-    def __init__(self, *args, initial=None, **kwargs):
-        initial2 = initial.copy() if initial is not None else {}
+    def __init__(self, request, initiative):
+        initial = {'vote': {'request': request,
+                            'pool': 'main',
+                            'initiative_pk': initiative.pk,
+                            'for': initiative.votes_for,
+                            'against': initiative.votes_against},
+                   'vote_being_spam': {'request': request,
+                                       'pool': 'spam',
+                                       'initiative_pk': initiative.pk,
+                                       'for': initiative.votes_for_being_spam,
+                                       'against': initiative.votes_against_being_spam}}
+
         for field_name in 'vote', 'vote_being_spam':
-            self.rectify_field(initial, initial2, field_name)
-        return super().__init__(*args, initial2, **kwargs)
+            self.rectify_field(initial, initial, field_name)
+
+        return super().__init__(initial=initial)
 
     def rectify_field(self, initial, initial2, field_name):
         with transaction.atomic():

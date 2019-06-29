@@ -4,20 +4,20 @@
         <span id="{{ widget.name }}_for_vote_btn_id"
                 {% if widget.value.myself_for %} style="display: none"{% endif %}>
             (<a href="#"
-                onclick="return ajax_vote('{{ widget.value.pool }}', false, {{ widget.value.initiative_pk }}, '{{ widget.name }}_for_vote_btn_id', '{{ widget.name }}_for_reclaim_btn_id', false)">vote</a>)</span>
+                onclick="return ajax_vote('{{ widget.value.pool }}', false, {{ widget.value.initiative_pk }}, false, '{{ widget.name }}_for')">vote</a>)</span>
         <span id="{{ widget.name }}_for_reclaim_btn_id"
                 {% if not widget.value.myself_for %} style="display: none"{% endif %}>
             + my vote (<a href="#"
-                          onclick="return ajax_vote('{{ widget.value.pool }}', true, {{ widget.value.initiative_pk }}, '{{ widget.name }}_for_reclaim_btn_id', '{{ widget.name }}_for_vote_btn_id', false)">reclaim</a>)</span> |
+                          onclick="return ajax_vote('{{ widget.value.pool }}', true, {{ widget.value.initiative_pk }}, false, '{{ widget.name }}_for')">reclaim</a>)</span> |
         {{ vote_against_text }}:
         {{ widget.value.votes_against }}
         <span id="{{ widget.name }}_against_vote_btn_id"
                 {% if widget.value.myself_against %} style="display: none"{% endif %}>
             (<a href="#"
-                onclick="return ajax_vote('{{ widget.value.pool }}', false, {{ widget.value.initiative_pk }}, '{{ widget.name }}_against_vote_btn_id', '{{ widget.name }}_against_reclaim_btn_id', true)">vote</a>)</span>
+                onclick="return ajax_vote('{{ widget.value.pool }}', false, {{ widget.value.initiative_pk }}, true, '{{ widget.name }}_against')">vote</a>)</span>
         <span id="{{ widget.name }}_against_reclaim_btn_id"
                 {% if not widget.value.myself_against %} style="display: none"{% endif %}>
             + my vote (<a href="#"
-                          onclick="return ajax_vote('{{ widget.value.pool }}', true, {{ widget.value.initiative_pk }}, '{{ widget.name }}_against_reclaim_btn_id', '{{ widget.name }}_against_vote_btn_id', true)">reclaim</a>)</span>
+                          onclick="return ajax_vote('{{ widget.value.pool }}', true, {{ widget.value.initiative_pk }}, true, '{{ widget.name }}_against')">reclaim</a>)</span>
     </p>
 </nav>

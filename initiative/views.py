@@ -23,16 +23,7 @@ class BaseShowInitiativeView(View):
         initiative = version.initiative_language.initiative
         old_versions = lang_obj and lang_obj.versions.order_by('-id')
 
-        vote_form = VoteForm(initial={'vote': {'request': request,
-                                               'pool': 'main',
-                                               'initiative_pk': initiative.pk,
-                                               'for': initiative.votes_for,
-                                               'against': initiative.votes_against},
-                                      'vote_being_spam': {'request': request,
-                                                          'pool': 'spam',
-                                                          'initiative_pk': initiative.pk,
-                                                          'for': initiative.votes_for_being_spam,
-                                                          'against': initiative.votes_against_being_spam}})
+        vote_form = VoteForm(request, initiative)
 
         return render(request, 'initiative/view.html', {'version': version,
                                                         'old_versions': old_versions,
@@ -154,20 +145,13 @@ class EditInitiativeView(LoginRequiredMixin, View):
 class AjaxVoteView(View):
     def post(self, request, pool, against, reclaim, initiative_pk):
         initiative = get_object_or_404(Initiative, pk=initiative_pk)
+        vote_form = VoteForm(request, initiative)
+
         if pool == 'main':
-            if against:
-                (initiative.votes_against.remove if reclaim \
-                     else initiative.votes_against.add)(request.user)
-            else:
-                (initiative.votes_for.remove if reclaim \
-                     else initiative.votes_for.add)(request.user)
+            vote_form.fields['vote'].vote(request, vote_form.initial['vote'], against, reclaim)
         elif pool == 'spam':
-            if against:
-                (initiative.votes_against_being_spam.remove if reclaim \
-                     else initiative.votes_against_being_spam.add)(request.user)
-            else:
-                (initiative.votes_for_being_spam.remove if reclaim \
-                     else initiative.votes_for_being_spam.add)(request.user)
+            vote_form.fields['vote_being_spam'].vote(request, vote_form.initial['vote_being_spam'], against, reclaim)
         else:
             return HttpResponse("Bad voting pool.", status=400)  # Don't translate.
+
         return HttpResponse('ok')
