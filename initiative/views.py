@@ -9,11 +9,31 @@ from django.utils.translation import get_language_from_request
 from django.views import View
 from django.utils.translation import gettext as _
 
-from initiative.forms import CreateInitiativePromptForm, InitiativeForm
+from initiative.forms import CreateInitiativePromptForm, InitiativeForm, VoteForm
 from initiative.models import InitiativeLanguage, InitiativeVersion, Initiative, InitiativeCategory
 
 
-class ShowInitiativeView(View):
+class BaseShowInitiativeView(View):
+    def do_get(self, request, version, is_last_version, lang, lang_obj):
+        problem = version and mark_safe(bleach.clean(version.problem, tags=bleach.sanitizer.ALLOWED_TAGS + ['p', 'br']))
+        solution = version and mark_safe(bleach.clean(version.solution, tags=bleach.sanitizer.ALLOWED_TAGS + ['p', 'br']))
+        outcome = version and mark_safe(bleach.clean(version.outcome, tags=bleach.sanitizer.ALLOWED_TAGS + ['p', 'br']))
+
+        old_versions = lang_obj and lang_obj.versions.order_by('-id')
+
+        vote_form = VoteForm()
+
+        return render(request, 'initiative/view.html', {'version': version,
+                                                        'old_versions': old_versions,
+                                                        'problem': problem,
+                                                        'solution': solution,
+                                                        'outcome': outcome,
+                                                        'is_last_version': is_last_version,
+                                                        'lang': lang,
+                                                        'vote_form': vote_form})
+
+
+class ShowInitiativeView(BaseShowInitiativeView):
     def get(self, request, initiative_pk):
         lang = request.GET.get('lang', '')
         language_codes = lang.split(',')
@@ -24,18 +44,15 @@ class ShowInitiativeView(View):
         lang_obj = initiative.first_of_specified_languages(language_codes)
         version = lang_obj.last_version if lang_obj else None
 
-        old_versions = lang_obj and lang_obj.versions.order_by('-id')
+        return self.do_get(request, version, bool(version), lang, lang_obj)
 
-        problem = version and mark_safe(bleach.clean(version.problem, tags=bleach.sanitizer.ALLOWED_TAGS + ['p', 'br']))
-        solution = version and mark_safe(bleach.clean(version.solution, tags=bleach.sanitizer.ALLOWED_TAGS + ['p', 'br']))
-        outcome = version and mark_safe(bleach.clean(version.outcome, tags=bleach.sanitizer.ALLOWED_TAGS + ['p', 'br']))
-        return render(request, 'initiative/view.html', {'version': version,
-                                                        'old_versions': old_versions,
-                                                        'problem': problem,
-                                                        'solution': solution,
-                                                        'outcome': outcome,
-                                                        'is_last_version': bool(version),
-                                                        'lang': lang})
+
+class ShowInitiativeVersionView(BaseShowInitiativeView):
+    def get(self, request, version_pk):
+        version = get_object_or_404(InitiativeVersion, pk=version_pk)
+        lang_obj = version.initiative_language
+
+        return self.do_get(request, version, version == lang_obj.last_version, None, lang_obj)
 
 
 class ListInitiativeView(View):
@@ -81,23 +98,6 @@ class ListInitiativeView(View):
                        'page_obj': initiatives,
                        'categories': categories,
                        'all_categories': all_categories})
-
-
-class ShowInitiativeVersionView(View):
-    def get(self, request, version_pk):
-        version = get_object_or_404(InitiativeVersion, pk=version_pk)
-        lang_obj = version.initiative_language
-        old_versions = lang_obj.versions.order_by('-id')
-
-        problem = mark_safe(bleach.clean(version.problem, tags=bleach.sanitizer.ALLOWED_TAGS + ['p', 'br']))
-        solution = mark_safe(bleach.clean(version.solution, tags=bleach.sanitizer.ALLOWED_TAGS + ['p', 'br']))
-        outcome = mark_safe(bleach.clean(version.outcome, tags=bleach.sanitizer.ALLOWED_TAGS + ['p', 'br']))
-        return render(request, 'initiative/view.html', {'version': version,
-                                                        'old_versions': old_versions,
-                                                        'problem': problem,
-                                                        'solution': solution,
-                                                        'outcome': outcome,
-                                                        'is_last_version': version == lang_obj.last_version})
 
 
 class CreateInitiativePromptView(LoginRequiredMixin, View):

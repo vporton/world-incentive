@@ -38,6 +38,8 @@
 
         <p><b>Created:</b> {{ version.initiative_language.initiative.created }} UTC</p>
 
+        {{ vote_form }}
+
         <nav>
             <p><a href="{% url 'initiative:edit' version.initiative_language.initiative.pk %}">Add new version</a> |
                 <a target="_blank" href="{% url 'initiative:edit' version.initiative_language.initiative.pk %}?translate=1"

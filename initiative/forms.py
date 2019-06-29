@@ -1,13 +1,14 @@
 from django import forms
 from django.core.exceptions import ValidationError
 from django.db import transaction, IntegrityError
-from django.forms import ChoiceField, CheckboxSelectMultiple
+from django.forms import ChoiceField, CheckboxSelectMultiple, Field
 from django.utils.translation import gettext as _
 import languages.languages
 from languages.forms import LanguageField
 
 from core.fields import PlaceFormField
 from initiative.models import InitiativeVersion, InitiativeCategory, InitiativeLanguage, Initiative
+from initiative.widgets import VoteWidget
 
 
 class CreateInitiativePromptForm(forms.Form):
@@ -57,3 +58,6 @@ class InitiativeForm(forms.ModelForm):
                     except IntegrityError as e:
                         raise ValidationError(e)
         return version
+
+class VoteForm(forms.Form):
+    vote = Field(widget=VoteWidget(vote_for_text=_("Vote for"), vote_against_text=_("Vote against")))
