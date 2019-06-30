@@ -99,11 +99,11 @@ class VoteForm(forms.Form):
                                        'against': version and version.votes_against_being_spam}}
 
         for field_name in 'vote', 'vote_being_spam':
-            self.rectify_field(initial, initial, field_name)
+            self.rectify_field(initial, field_name)
 
         return super().__init__(initial=initial)
 
-    def rectify_field(self, initial, initial2, field_name):
+    def rectify_field(self, initial, field_name):
         with transaction.atomic():
             # TODO: Don't calculate these counts when doing voting
             votes_for = initial[field_name]['for'] and initial[field_name]['for'].count()
@@ -118,7 +118,7 @@ class VoteForm(forms.Form):
         if myself_against:
             votes_against -= 1
 
-        initial2[field_name]['votes_for'] = votes_for
-        initial2[field_name]['votes_against'] = votes_against
-        initial2[field_name]['myself_for'] = myself_for
-        initial2[field_name]['myself_against'] = myself_against
+        initial[field_name]['votes_for'] = votes_for
+        initial[field_name]['votes_against'] = votes_against
+        initial[field_name]['myself_for'] = myself_for
+        initial[field_name]['myself_against'] = myself_against
