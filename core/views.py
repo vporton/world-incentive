@@ -1,7 +1,9 @@
 import html
 
 from django import views
+from django.conf import settings
 from django.contrib.sitemaps import Sitemap
+from django.contrib.sites.models import Site
 from django.http import HttpResponse
 from django.urls import reverse
 from django.utils.translation import gettext as _, LANGUAGE_SESSION_KEY
@@ -34,7 +36,15 @@ class CitiesAjaxView(views.View):
                                        for item in lst]))
 
 
-class StaticViewSitemap(Sitemap):
+class MySitemap(Sitemap):
+    protocol = settings.PROTOCOL
+
+    # def get_urls(self, site=None, **kwargs):
+    #     site = Site(domain=settings.DOMAIN, name=settings.DOMAIN)
+    #     return super().get_urls(site=site, **kwargs)
+
+
+class StaticViewSitemap(MySitemap):
     priority = 1.0
 
     def items(self):
@@ -44,7 +54,7 @@ class StaticViewSitemap(Sitemap):
         return reverse(item)
 
 
-class InitiativeSitemap(Sitemap):
+class InitiativeSitemap(MySitemap):
     priority = 1.0
 
     def items(self):
@@ -56,7 +66,7 @@ class InitiativeSitemap(Sitemap):
         return obj.initiative.updated  # TODO: wrong date
 
 
-class InitiativeVersionSitemap(Sitemap):
+class InitiativeVersionSitemap(MySitemap):
     priority = 0.3
 
     def items(self):
@@ -66,7 +76,7 @@ class InitiativeVersionSitemap(Sitemap):
         return obj.created
 
 
-class UserSitemap(Sitemap):
+class UserSitemap(MySitemap):
     priority = 0.5
 
     def items(self):

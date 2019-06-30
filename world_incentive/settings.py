@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'django.contrib.gis',
+    'django.contrib.sites',
     'django.contrib.sitemaps',
     'ordered_model',
     'bootstrap3',
@@ -150,7 +151,10 @@ STATIC_URL = '/static/'
 GOOGLE_ANALYTICS_KEY = ''
 # GOOGLE_ANALYTICS_IGNORE_ADMIN = True # bug in django-googlytics==0.2.1
 
+DOMAIN = '127.0.0.1:8000'
+PROTOCOL = 'http'
 SITE_URL = 'http://127.0.0.1:8000'
+SITE_ID = 2
 LOGIN_REDIRECT_URL = '/'
 
 try:
