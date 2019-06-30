@@ -1,4 +1,3 @@
-from itertools import zip_longest
 from django.db import models, transaction
 from django.utils import timezone
 from django.utils.translation import gettext as _
@@ -40,12 +39,6 @@ class Initiative(models.Model):
     votes_against = models.ManyToManyField('user.User',
                                            verbose_name=_("Votes against"),
                                            related_name='voters_against')
-    votes_for_being_spam = models.ManyToManyField('user.User',
-                                                  verbose_name=_("Votes for being SPAM"),
-                                                  related_name='voters_for_being_spam')
-    votes_against_being_spam = models.ManyToManyField('user.User',
-                                                      verbose_name=_("Votes against being SPAM"),
-                                                      related_name='voters_against_being_spam')
 
     def last_version(self, language):
         try:
@@ -112,6 +105,12 @@ class InitiativeVersion(models.Model):
     solution = models.TextField(blank=False)
     outcome = models.TextField(blank=False)
 
+    votes_for_being_spam = models.ManyToManyField('user.User',
+                                                  verbose_name=_("Votes for being SPAM"),
+                                                  related_name='voters_for_being_spam')
+    votes_against_being_spam = models.ManyToManyField('user.User',
+                                                      verbose_name=_("Votes against being SPAM"),
+                                                      related_name='voters_against_being_spam')
     spam = models.BooleanField(default=False)
 
     def __str__(self):
@@ -125,7 +124,4 @@ class InitiativeVersion(models.Model):
                 self.solution != other.solution or \
                 self.outcome != other.outcome:
             return False
-        cat1 = self.categories.all().order_by('id')
-        cat2 = other.categories.all().order_by('id')
-        sentinel = object()
-        return all(a == b for a, b in zip_longest(cat1, cat2, fillvalue=sentinel))
+        return True

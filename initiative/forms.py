@@ -86,17 +86,17 @@ class VoteForm(forms.Form):
     vote_being_spam = VoteField(widget=VoteWidget(vote_for_text=_("Votes for being SPAM"),
                                 vote_against_text=_("Votes against being SPAM")))
 
-    def __init__(self, request, initiative):
+    def __init__(self, request, initiative, version):
         initial = {'vote': {'request': request,
                             'pool': 'main',
-                            'initiative_pk': initiative.pk,
-                            'for': initiative.votes_for,
-                            'against': initiative.votes_against},
+                            'initiative_pk': initiative and initiative.pk,
+                            'for': initiative and initiative.votes_for,
+                            'against': initiative and initiative.votes_against},
                    'vote_being_spam': {'request': request,
                                        'pool': 'spam',
-                                       'initiative_pk': initiative.pk,
-                                       'for': initiative.votes_for_being_spam,
-                                       'against': initiative.votes_against_being_spam}}
+                                       'initiative_pk': version and version.pk,
+                                       'for': version and version.votes_for_being_spam,
+                                       'against': version and version.votes_against_being_spam}}
 
         for field_name in 'vote', 'vote_being_spam':
             self.rectify_field(initial, initial, field_name)
@@ -105,10 +105,13 @@ class VoteForm(forms.Form):
 
     def rectify_field(self, initial, initial2, field_name):
         with transaction.atomic():
-            votes_for = initial[field_name]['for'].count()
-            votes_against = initial[field_name]['against'].count()
-            myself_for = initial[field_name]['request'].user in initial[field_name]['for'].all()
-            myself_against = initial[field_name]['request'].user in initial[field_name]['against'].all()
+            # TODO: Don't calculate these counts when doing voting
+            votes_for = initial[field_name]['for'] and initial[field_name]['for'].count()
+            votes_against = initial[field_name]['against'] and initial[field_name]['against'].count()
+            myself_for = initial[field_name]['request'].user in initial[field_name]['for'].all() if \
+                initial[field_name]['for'] and initial[field_name]['request'].user in initial[field_name]['for'].all() else False
+            myself_against = initial[field_name]['request'].user in initial[field_name]['against'].all() if \
+                initial[field_name]['against'] and initial[field_name]['request'].user in initial[field_name]['against'].all() else False
 
         if myself_for:
             votes_for -= 1

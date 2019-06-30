@@ -11,5 +11,5 @@ urlpatterns = [
     path('create', views.CreateInitiativeView.as_view(), name='create'),
     path('edit/<int:initiative_pk>/<language>', views.EditInitiativeView.as_view(), name='edit'),
     path('translate/<int:initiative_pk>', views.TranslateInitiativeView.as_view(), name='translate'),
-    path('ajax-vote/<str:pool>:<int:against>:<int:reclaim>/<int:initiative_pk>', views.AjaxVoteView.as_view(), name='vote')
+    path('ajax-vote/<str:pool>:<int:against>:<int:reclaim>/<int:pk>', views.AjaxVoteView.as_view(), name='vote')
 ]

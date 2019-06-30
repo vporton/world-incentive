@@ -25,7 +25,7 @@ class BaseShowInitiativeView(View):
         initiative = version.initiative_language.initiative
         old_versions = lang_obj and lang_obj.versions.order_by('-id')
 
-        vote_form = VoteForm(request, initiative)
+        vote_form = VoteForm(request, initiative, version)
 
         return render(request, 'initiative/view.html', {'initiative': initiative,
                                                         'version': version,
@@ -177,17 +177,23 @@ class TranslateInitiativeView(LoginRequiredMixin, View):
 
 
 class AjaxVoteView(View):
-    def post(self, request, pool, against, reclaim, initiative_pk):
-        initiative = get_object_or_404(Initiative, pk=initiative_pk)
-        vote_form = VoteForm(request, initiative)
-
+    def post(self, request, pool, against, reclaim, pk):
         if pool == 'main':
+            initiative = get_object_or_404(Initiative, pk=pk)
+            vote_form = VoteForm(request, initiative, None)
             vote_form.fields['vote'].vote(request, vote_form.initial['vote'], against, reclaim)
         elif pool == 'spam':  # FIXME: Vote for version not for initiaitive
+            version = get_object_or_404(InitiativeVersion, pk=pk)
+            vote_form = VoteForm(request, None, version)
             with transaction.atomic():
                 vote_form.fields['vote_being_spam'].vote(request, vote_form.initial['vote_being_spam'], against, reclaim)
-                # if initiative.votes_for_being_spam.count() > initiative.votes_against_being_spam.count() + 1:
-                #     in
+                version.spam = version.votes_for_being_spam.count() > version.votes_against_being_spam.count() + 1
+                if version.spam and version.initiative_language.last_version == version:
+                    version.initiative_language.last_version = \
+                        version.initiative_language.versions.filter(spam=False).order_by('id').last()
+                elif not version.spam and version.initiative_language.last_version.pk < version.pk:
+                    version.initiative_language.last_version = version
+                version.save()
         else:
             return HttpResponse("Bad voting pool.", status=400)  # Don't translate.
 
