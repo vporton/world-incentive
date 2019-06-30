@@ -77,16 +77,16 @@
 
 <h3>In other languages</h3>
 
-{% if version.languages|length > 1 %}
+{% if version.initiative_language.initiative.languages.all|length > 1 %}
     <ul>
-    {% for lang in version.languages %}
+    {% for lang in version.initiative_language.initiative.languages.all %}
+        {% if lang != version.initiative_language %}
         <li>
-        {% if lang != version.language %}
-            <a href="{% url 'initiative:view' version.initiative.pk %}?lang={{ lang.language }}"
+            <a href="{% url 'initiative:view' version.initiative_language.initiative.pk %}?lang={{ lang.language }}"
                lang="{{ lang.language }}">{{ lang.last_version }}</a>
                 ({{ lang.language_name }})
-        {% endif %}
         </li>
+        {% endif %}
     {% endfor %}
     </ul>
 {% else %}
