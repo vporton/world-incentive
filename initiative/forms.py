@@ -51,7 +51,9 @@ class InitiativeForm(forms.ModelForm):
         self.fields['editor'].required = True
         # self.fields['initiative'].widget = forms.HiddenInput()
         # self.fields['initiative'].required = False
-        self.fields['categories'].initial = self.instance.initiative_language.initiative.categories.all()
+        self.fields['categories'].initial = \
+            self.instance.initiative_language.initiative.categories.all() \
+                if self.instance and self.instance.pk else None
 
     def save(self, commit=True):
         version = super().save(commit=False)
