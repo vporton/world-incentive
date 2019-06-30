@@ -8,6 +8,9 @@
 {% endblock %}
 
 {% block moreheader %}
+    {% if version.spam %}
+        <meta name="robots" content="noindex" />
+    {% endif %}
     {% if is_last_version %}
         <link rel="canonical"
               href="{{ settings.SITE_URL }}{% url 'initiative:view' initiative.pk %}?lang={{ version.initiative_language.language }}" />
