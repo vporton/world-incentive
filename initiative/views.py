@@ -1,6 +1,7 @@
 import bleach
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.core.paginator import Paginator
+from django.db import transaction
 from django.forms import HiddenInput
 from django.http import HttpResponse
 from django.shortcuts import render, get_object_or_404, redirect
@@ -182,8 +183,11 @@ class AjaxVoteView(View):
 
         if pool == 'main':
             vote_form.fields['vote'].vote(request, vote_form.initial['vote'], against, reclaim)
-        elif pool == 'spam':
-            vote_form.fields['vote_being_spam'].vote(request, vote_form.initial['vote_being_spam'], against, reclaim)
+        elif pool == 'spam':  # FIXME: Vote for version not for initiaitive
+            with transaction.atomic():
+                vote_form.fields['vote_being_spam'].vote(request, vote_form.initial['vote_being_spam'], against, reclaim)
+                # if initiative.votes_for_being_spam.count() > initiative.votes_against_being_spam.count() + 1:
+                #     in
         else:
             return HttpResponse("Bad voting pool.", status=400)  # Don't translate.
 

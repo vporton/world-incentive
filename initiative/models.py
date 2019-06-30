@@ -112,6 +112,8 @@ class InitiativeVersion(models.Model):
     solution = models.TextField(blank=False)
     outcome = models.TextField(blank=False)
 
+    spam = models.BooleanField(default=False)
+
     def __str__(self):
         return self.title
 
