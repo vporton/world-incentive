@@ -59,18 +59,17 @@ class InitiativeForm(forms.ModelForm):
         version = super().save(commit=False)
         if commit:
             with transaction.atomic():
-                initiative_id = self.cleaned_data['initiative']
-                if initiative_id:
-                    initiative = Initiative.objects.get(pk=initiative_id)
-                else:
+                initiative = self.cleaned_data['initiative']
+                if not initiative:
                     h = {'place_' + f: self.cleaned_data['place'][f] for f in self.cleaned_data['place'].keys()}
                     initiative = Initiative.objects.create(**h)
                 if initiative.add_version(version, self.cleaned_data['language']):
-                    try:
-                        for category in self.cleaned_data['categories']:
-                            initiative.categories.add(category)
-                    except IntegrityError as e:
-                        raise ValidationError(e)
+                    if 'categories' in self.cleaned_data:  # no such in Translation
+                        try:
+                            for category in self.cleaned_data['categories']:
+                                initiative.categories.add(category)
+                        except IntegrityError as e:
+                            raise ValidationError(e)
         return version
 
 
