@@ -54,6 +54,9 @@ class InitiativeForm(forms.ModelForm):
         self.fields['categories'].initial = \
             self.instance.initiative_language.initiative.categories.all() \
                 if self.instance and self.instance.pk else None
+        initiative = self.instance.initiative_language.initiative if self.instance and self.instance.pk else None
+        self.fields['place'].initial = \
+            initiative.place._composite_field.value_from_object(initiative) if initiative else None
 
     def save(self, commit=True):
         version = super().save(commit=False)
