@@ -67,7 +67,9 @@
                 </div>
             </li>
           {% endif %}
+          {% if not user.is_anonymous %}
             <li><a href="#" onclick="return ajax_create_initiative_prompt('{% url 'initiative:create-prompt' %}');">Add initiative</a></li>
+          {% endif %}
             <!--li><a href="/blog/" target="_blank">Blog</a></li-->
           </ul>
           <ul class="nav navbar-nav navbar-right">
