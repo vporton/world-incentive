@@ -5,6 +5,8 @@ from django.forms import ChoiceField, CheckboxSelectMultiple, Field
 from django.utils.translation import gettext as _
 import languages.languages
 from languages.forms import LanguageField
+from snowpenguin.django.recaptcha2.fields import ReCaptchaField
+from snowpenguin.django.recaptcha2.widgets import ReCaptchaWidget
 
 from core.fields import PlaceFormField
 from initiative.fields import VoteField
@@ -22,6 +24,7 @@ class CreateInitiativePromptForm(forms.Form):
 class InitiativeForm(forms.ModelForm):
     required_css_class = 'required'
 
+    captcha = ReCaptchaField(widget=ReCaptchaWidget())
     # editor = forms.IntegerField(widget=forms.HiddenInput(), required=True)
     initiative = forms.ModelChoiceField(widget=forms.HiddenInput(), queryset=Initiative.objects.all(), required=False)
     language = LanguageField(choices=languages.languages.LANGUAGES,
@@ -43,7 +46,8 @@ class InitiativeForm(forms.ModelForm):
                   'problem',
                   'solution',
                   'outcome',
-                  'categories']
+                  'categories',
+                  'captcha']
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)

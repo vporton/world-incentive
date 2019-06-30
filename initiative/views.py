@@ -124,9 +124,8 @@ class CreateInitiativeView(LoginRequiredMixin, View):
         data = request.POST.copy()
         data['editor'] = request.user.pk
         form = InitiativeForm(data)
-        try:
-            form.full_clean()
-        except ValueError:
+        form.full_clean()
+        if not form.is_valid():
             return render(request, 'initiative/initiative-form.html',
                           {'form': form, 'title': _("Create Initiative"), 'button': _("Create")})
         version = form.save()
@@ -145,9 +144,8 @@ class EditInitiativeView(LoginRequiredMixin, View):
         data = request.POST.copy()
         data['editor'] = request.user.pk
         form = InitiativeForm(data)
-        try:
-            form.full_clean()
-        except ValueError as e:
+        form.full_clean()
+        if not form.is_valid():
             return render(request, 'initiative/initiative-form.html',
                           {'form': form, 'title': _("Edit Initiative"), 'button': _("Edit")})
         version = form.save()
@@ -167,9 +165,8 @@ class TranslateInitiativeView(LoginRequiredMixin, View):
         data = request.POST.copy()
         data['editor'] = request.user.pk
         form = TranslateInitiativeForm(data)
-        try:
-            form.full_clean()
-        except ValueError:
+        form.full_clean()
+        if not form.is_valid():
             return render(request, 'initiative/initiative-form.html',
                           {'form': form, 'title': _("Translate Initiative"), 'button': _("Translate")})
         version = form.save()
