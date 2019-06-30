@@ -10,7 +10,7 @@
 {% block moreheader %}
     {% if is_last_version %}
         <link rel="canonical"
-              href="{{ settings.SITE_URL }}{% url 'initiative:view' version.initiative_language.initiative.pk %}?lang={{ version.initiative_language.language }}" />
+              href="{{ settings.SITE_URL }}{% url 'initiative:view' initiative.pk %}?lang={{ version.initiative_language.language }}" />
     {% endif %}
 {% endblock %}
 
@@ -20,7 +20,7 @@
 
     {% if not is_last_version %}
         <p><span style="color: red">This is not the last version of the initiative.</span>
-            <a href="{% url 'initiative:view' version.initiative_language.initiative.pk %}?lang={{ version.initiative_language.language }}"
+            <a href="{% url 'initiative:view' initiative.pk %}?lang={{ version.initiative_language.language }}"
                lang="{{ version.initiative_language.language }}">Go to the last version.</a></p>
     {% endif %}
 
@@ -29,12 +29,12 @@
     <section lang="{{ lang }}">
 
         <p><b>Place:</b>
-            {% if version.place.country %}
-                Country: {{version.place.country}} |
-                Region: {{version.place.region}} |
-                Subregion: {{version.place.subregion}} |
-                City: {{version.place.city}} |
-                District: {{version.place.district}}</p>
+            {% if initiative.place.country %}
+                Country: {{initiative.place.country}} |
+                Region: {{initiative.place.region}} |
+                Subregion: {{initiative.place.subregion}} |
+                City: {{initiative.place.city}} |
+                District: {{initiative.place.district}}</p>
             {% else %}
                 World
             {% endif %}
@@ -42,14 +42,14 @@
 
         <p><b>Categories:</b> {% for c in categories %}{{ c }}{% if not forloop.last %}; {% endif %}{% empty %}none{% endfor %}</p>
 
-        <p><b>Created:</b> {{ version.initiative_language.initiative.created }} UTC</p>
+        <p><b>Created:</b> {{ initiative.created }} UTC</p>
 
         {{ vote_form.vote }}
         {{ vote_form.vote_being_spam }}
 
         <nav>
-            <p><a href="{% url 'initiative:edit' version.initiative_language.initiative.pk version.initiative_language.language %}">Add new version</a> |
-                <a target="_blank" href="{% url 'initiative:translate' version.initiative_language.initiative.pk %}"
+            <p><a href="{% url 'initiative:edit' initiative.pk version.initiative_language.language %}">Add new version</a> |
+                <a target="_blank" href="{% url 'initiative:translate' initiative.pk %}"
                 >Translate to another language</a></p>
         </nav>
 
@@ -77,12 +77,12 @@
 
 <h3>In other languages</h3>
 
-{% if version.initiative_language.initiative.languages.all|length > 1 %}
+{% if initiative.languages.all|length > 1 %}
     <ul>
-    {% for lang in version.initiative_language.initiative.languages.all %}
+    {% for lang in initiative.languages.all %}
         {% if lang != version.initiative_language %}
         <li>
-            <a href="{% url 'initiative:view' version.initiative_language.initiative.pk %}?lang={{ lang.language }}"
+            <a href="{% url 'initiative:view' initiative.pk %}?lang={{ lang.language }}"
                lang="{{ lang.language }}">{{ lang.last_version }}</a>
                 ({{ lang.language_name }})
         </li>

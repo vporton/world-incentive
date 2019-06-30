@@ -26,7 +26,8 @@ class BaseShowInitiativeView(View):
 
         vote_form = VoteForm(request, initiative)
 
-        return render(request, 'initiative/view.html', {'version': version,
+        return render(request, 'initiative/view.html', {'initiative': initiative,
+                                                        'version': version,
                                                         'old_versions': old_versions,
                                                         'problem': problem,
                                                         'solution': solution,
