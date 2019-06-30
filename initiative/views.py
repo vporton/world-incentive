@@ -126,7 +126,7 @@ class CreateInitiativeView(LoginRequiredMixin, View):
         except ValueError:
             return render(request, 'initiative/initiative-form.html',
                           {'form': form, 'title': _("Create Initiative")})
-        version = form.save()  # FIXME: Here and below use add_version().
+        version = form.save()
         return redirect(reverse('initiative:view', args=[version.initiative_language.initiative.pk]) + '?lang=' + form.cleaned_data['language'])
 
 

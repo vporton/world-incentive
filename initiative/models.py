@@ -65,6 +65,7 @@ class Initiative(models.Model):
                 version.initiative_language = lang_obj
                 version.save()
                 lang_obj.last_version = version
+                lang_obj.save()
                 self.updated = timezone.now()
             return True
 
@@ -97,6 +98,7 @@ class InitiativeLanguage(models.Model):
     @property
     def language_name(self):
         return LANGUAGE_NAMES[self.language]
+
 
 class InitiativeVersion(models.Model):
     initiative_language = models.ForeignKey(InitiativeLanguage, on_delete=models.CASCADE, related_name='versions')
