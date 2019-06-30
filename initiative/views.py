@@ -115,7 +115,8 @@ class CreateInitiativeView(LoginRequiredMixin, View):
     def get(self, request):
         language = request.GET.get('language', 'en')
         form = InitiativeForm(initial={'language': language})
-        return render(request, 'initiative/initiative-form.html', {'form': form, 'title': _("Create Initiative")})
+        return render(request, 'initiative/initiative-form.html',
+                      {'form': form, 'title': _("Create Initiative"), 'button': _("Create")})
 
     def post(self, request):
         data = request.POST.copy()
@@ -125,7 +126,7 @@ class CreateInitiativeView(LoginRequiredMixin, View):
             form.full_clean()
         except ValueError:
             return render(request, 'initiative/initiative-form.html',
-                          {'form': form, 'title': _("Create Initiative")})
+                          {'form': form, 'title': _("Create Initiative"), 'button': _("Create")})
         version = form.save()
         return redirect(reverse('initiative:view', args=[version.initiative_language.initiative.pk]) + '?lang=' + form.cleaned_data['language'])
 
@@ -136,7 +137,7 @@ class EditInitiativeView(LoginRequiredMixin, View):
         version = initiative.last_version(language)
         form = InitiativeForm(instance=version, initial={'language': language})
         return render(request, 'initiative/initiative-form.html',
-                      {'form': form, 'title': _("Edit initiative")})
+                      {'form': form, 'title': _("Edit initiative"), 'button': _("Edit")})
 
     def post(self, request, initiative_pk, language):
         data = request.POST.copy()
@@ -146,7 +147,7 @@ class EditInitiativeView(LoginRequiredMixin, View):
             form.full_clean()
         except ValueError as e:
             return render(request, 'initiative/initiative-form.html',
-                          {'form': form, 'title': _("Edit Initiative")})
+                          {'form': form, 'title': _("Edit Initiative"), 'button': _("Edit")})
         version = form.save()
         return redirect(reverse('initiative:view', args=[version.initiative_language.initiative.pk]) + '?lang=' + form.cleaned_data['language'])
 
@@ -158,7 +159,7 @@ class TranslateInitiativeView(LoginRequiredMixin, View):
         form = InitiativeForm(instance=version, initial={'initiative': initiative})
         form.fields['categories'].widget = HiddenInput()
         return render(request, 'initiative/initiative-form.html',
-                      {'form': form, 'title': _("Translate Initiative")})
+                      {'form': form, 'title': _("Translate Initiative"), 'button': _("Translate")})
 
     # FIXME: Can only translate to a non-existing language.
     def post(self, request, initiative_pk):
@@ -169,7 +170,7 @@ class TranslateInitiativeView(LoginRequiredMixin, View):
             form.full_clean()
         except ValueError:
             return render(request, 'initiative/initiative-form.html',
-                          {'form': form, 'title': _("Translate Initiative")})
+                          {'form': form, 'title': _("Translate Initiative"), 'button': _("Translate")})
         version = form.save()
         return redirect(reverse('initiative:view', args=[version.initiative_language.initiative.pk]) + '?lang=' + form.cleaned_data['language'])
 
