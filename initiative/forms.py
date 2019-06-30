@@ -74,6 +74,13 @@ class InitiativeForm(forms.ModelForm):
         return version
 
 
+class TranslateInitiativeForm(InitiativeForm):
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.fields.pop('categories')
+        self.fields.pop('place')
+
+
 class VoteForm(forms.Form):
     vote = VoteField(widget=VoteWidget(vote_for_text=_("Votes for"),
                                        vote_against_text=_("Votes against")))

@@ -10,7 +10,7 @@ from django.utils.translation import get_language_from_request
 from django.views import View
 from django.utils.translation import gettext as _
 
-from initiative.forms import CreateInitiativePromptForm, InitiativeForm, VoteForm
+from initiative.forms import CreateInitiativePromptForm, InitiativeForm, VoteForm, TranslateInitiativeForm
 from initiative.models import InitiativeLanguage, InitiativeVersion, Initiative, InitiativeCategory
 
 
@@ -156,8 +156,7 @@ class TranslateInitiativeView(LoginRequiredMixin, View):
     def get(self, request, initiative_pk):
         initiative = get_object_or_404(Initiative, pk=initiative_pk)
         version = InitiativeVersion()
-        form = InitiativeForm(instance=version, initial={'initiative': initiative})
-        form.fields['categories'].widget = HiddenInput()
+        form = TranslateInitiativeForm(instance=version, initial={'initiative': initiative})
         return render(request, 'initiative/initiative-form.html',
                       {'form': form, 'title': _("Translate Initiative"), 'button': _("Translate")})
 
@@ -165,7 +164,7 @@ class TranslateInitiativeView(LoginRequiredMixin, View):
     def post(self, request, initiative_pk):
         data = request.POST.copy()
         data['editor'] = request.user.pk
-        form = InitiativeForm(data)
+        form = TranslateInitiativeForm(data)
         try:
             form.full_clean()
         except ValueError:
