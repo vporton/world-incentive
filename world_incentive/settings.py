@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'django.contrib.gis',
+    'django.contrib.sitemaps',
     'ordered_model',
     'bootstrap3',
     'snowpenguin.django.recaptcha2',

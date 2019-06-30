@@ -1,4 +1,5 @@
 from django.db import models, transaction
+from django.urls import reverse
 from django.utils import timezone
 from django.utils.translation import gettext as _
 from languages.fields import LanguageField
@@ -97,6 +98,9 @@ class InitiativeLanguage(models.Model):
     def language_name(self):
         return LANGUAGE_NAMES[self.language]
 
+    def get_absolute_url(self):
+        return reverse('initiative:view', args=[self.initiative.pk]) + '?lang=' + str(self.language)
+
 
 class InitiativeVersion(models.Model):
     initiative_language = models.ForeignKey(InitiativeLanguage, on_delete=models.CASCADE, related_name='versions')
@@ -130,3 +134,6 @@ class InitiativeVersion(models.Model):
                 self.outcome != other.outcome:
             return False
         return True
+
+    def get_absolute_url(self):
+        return reverse('initiative:view-old', args=[self.pk])
