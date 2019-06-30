@@ -2,7 +2,7 @@ psycopg2
 bleach
 django-composite-field
 django-ordered-model
-https://github.com/vporton/django-language-field.git
+git+https://github.com/vporton/django-language-field.git
 django-bootstrap3
 django-recaptcha2
 django-googlytics==0.2.1
