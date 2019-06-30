@@ -10,12 +10,11 @@
 
 * Creating a version of initiative to require captcha.
 
-* SPAM filtering.
-
 * Filtering initiatives by place.
 
 * Performance of filtering.
 
 * https://docs.djangoproject.com/en/2.2/ref/contrib/sitemaps/
+  (with spam support).
 
 * Russian language.

@@ -77,6 +77,11 @@ class Initiative(models.Model):
         lang_obj = self.first_of_specified_languages(language_codes)
         return lang_obj.last_version if lang_obj else None
 
+    # TODO: slow
+    @property
+    def spam(self):
+        return not self.select_related('languages__versions').exists(spam=False)
+
 
 class InitiativeLanguage(models.Model):
     initiative = models.ForeignKey(Initiative, on_delete=models.CASCADE, related_name='languages')
