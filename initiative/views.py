@@ -182,7 +182,7 @@ class AjaxVoteView(View):
             initiative = get_object_or_404(Initiative, pk=pk)
             vote_form = VoteForm(request, initiative, None)
             vote_form.fields['vote'].vote(request, vote_form.initial['vote'], against, reclaim)
-        elif pool == 'spam':  # FIXME: Vote for version not for initiaitive
+        elif pool == 'spam':
             version = get_object_or_404(InitiativeVersion, pk=pk)
             vote_form = VoteForm(request, None, version)
             with transaction.atomic():
