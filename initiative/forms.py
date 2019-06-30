@@ -42,7 +42,8 @@ class InitiativeForm(forms.ModelForm):
                   'title',
                   'problem',
                   'solution',
-                  'outcome']
+                  'outcome',
+                  'categories']
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
@@ -50,6 +51,7 @@ class InitiativeForm(forms.ModelForm):
         self.fields['editor'].required = True
         # self.fields['initiative'].widget = forms.HiddenInput()
         # self.fields['initiative'].required = False
+        self.fields['categories'].initial = self.instance.initiative_language.initiative.categories.all()
 
     def save(self, commit=True):
         version = super().save(commit=False)
