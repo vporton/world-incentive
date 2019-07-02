@@ -1,5 +1,5 @@
 $(document).ajaxError(function( event, request, settings ) {
-    alert("Error: " + request.status); // TODO: Localize.
+    alert(request.responseText);
 });
 
 //This function gets cookie with a given name

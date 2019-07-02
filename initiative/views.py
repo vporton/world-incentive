@@ -175,6 +175,8 @@ class TranslateInitiativeView(LoginRequiredMixin, View):
 
 class AjaxVoteView(View):
     def post(self, request, pool, against, reclaim, pk):
+        if request.user.is_anonymous:
+            return HttpResponse('Register to vote.', status=400)
         if pool == 'main':
             initiative = get_object_or_404(Initiative, pk=pk)
             vote_form = VoteForm(request, initiative, None)
