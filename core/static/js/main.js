@@ -92,8 +92,8 @@ function ajax_create_initiative_prompt(url) {
 
 function set_categories_filter() {
     var cats = [];
-    $('#categoriesFilter').find(':checked').each(function (c) {
-        cats.push(c);
+    $('#categoriesFilter').find(':checked').each(function () {
+        cats.push(this.value);
     })
     var url = new URL(location.href);
     url.searchParams.set('cat', cats.join(','));
