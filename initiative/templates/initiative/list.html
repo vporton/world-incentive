@@ -13,7 +13,7 @@
     {% include 'core/paginator_template.html' %}
     <ul>
         {% for i in versions %}
-        <li><a href="{% url 'initiative:view' i.initiative_language.initiative.pk %}?lang={{ i.initiative_language.language }}">{{ i }}</a>
+        <li><a href="{% url 'initiative:view' i.initiative_language.initiative.pk %}?lang={{ i.initiative_language.language }}">{{ i.title }}</a>
             {% if i.spam %}<span style="color: red">(spam)</span>{% endif %}</li>
         {% endfor %}
     </ul>
