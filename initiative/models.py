@@ -104,6 +104,7 @@ class InitiativeLanguage(models.Model):
     def __str__(self):
         return self.language
 
+
 class InitiativeVersion(models.Model):
     initiative_language = models.ForeignKey(InitiativeLanguage, on_delete=models.CASCADE, related_name='versions')
 
@@ -118,10 +119,12 @@ class InitiativeVersion(models.Model):
 
     votes_for_being_spam = models.ManyToManyField('user.User',
                                                   verbose_name=_("Votes for being SPAM"),
-                                                  related_name='voters_for_being_spam')
+                                                  related_name='voters_for_being_spam',
+                                                  blank=True)
     votes_against_being_spam = models.ManyToManyField('user.User',
                                                       verbose_name=_("Votes against being SPAM"),
-                                                      related_name='voters_against_being_spam')
+                                                      related_name='voters_against_being_spam',
+                                                      blank=True)
     spam = models.BooleanField(default=False)
 
     def __str__(self):
