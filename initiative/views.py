@@ -19,7 +19,7 @@ class BaseShowInitiativeView(View):
     def do_get(self, request, version, is_last_version, lang, lang_obj):
         problem = version and mark_safe(bleach.clean(version.problem, tags=bleach.sanitizer.ALLOWED_TAGS + ['p', 'br', 'div']))
         solution = version and mark_safe(
-            bleach.clean(version.solution, tags=bleach.sanitizer.ALLOWED_TAGS + ['p', 'br']))
+            bleach.clean(version.solution, tags=bleach.sanitizer.ALLOWED_TAGS + ['p', 'br', 'div']))
         outcome = version and mark_safe(bleach.clean(version.outcome, tags=bleach.sanitizer.ALLOWED_TAGS + ['p', 'br', 'div']))
 
         initiative = version.initiative_language.initiative
