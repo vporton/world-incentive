@@ -4,92 +4,122 @@
 <!DOCTYPE html>
 <html lang="{{ lang }}">
 <head>
-  <title>World Incentive - {% block title %}{% endblock %}</title>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <script
-  src="https://code.jquery.com/jquery-3.3.1.min.js"
-  integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
-  crossorigin="anonymous"></script>
-  {# <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script> #}
-  {% bootstrap_css %}
-  {% bootstrap_javascript %}
-  <script src="{% static 'jquery-ui-1.12.1.custom/jquery-ui.min.js' %}"></script>
-  <link rel='stylesheet' type='text/css' href='{% static 'jquery-ui-1.12.1.custom/jquery-ui.min.css' %}' />
-  <link rel='stylesheet' type='text/css' href='{% static 'main.css' %}' />
-  <style>
-    {% block css %}{% endblock %}
-  </style>
-  <script src="{% static 'js/main.js' %}"></script>
-  {% block scripts %}{% endblock %}
-  {% block moreheader %}{% endblock %}
-  <meta name="google-site-verification" content="uJHqQ-D8RgAk54PeViUBKzdBIZkKQDm5c-Ym6VGT0NI" />
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-60199552-3"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+
+        function gtag() {
+            dataLayer.push(arguments);
+        }
+
+        gtag('js', new Date());
+        gtag('config', 'UA-60199552-3');
+    </script>
+    <script data-ad-client="ca-pub-7441925053494916" async
+            src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+    <title>World Incentive - {% block title %}{% endblock %}</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script
+            src="https://code.jquery.com/jquery-3.3.1.min.js"
+            integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+            crossorigin="anonymous"></script>
+    {# <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script> #}
+    {% bootstrap_css %}
+    {% bootstrap_javascript %}
+    <script src="{% static 'jquery-ui-1.12.1.custom/jquery-ui.min.js' %}"></script>
+    <link rel='stylesheet' type='text/css' href='{% static 'jquery-ui-1.12.1.custom/jquery-ui.min.css' %}'/>
+    <link rel='stylesheet' type='text/css' href='{% static 'main.css' %}'/>
+    <style>
+        {% block css %}{% endblock %}
+    </style>
+    <script src="{% static 'js/main.js' %}"></script>
+    {% block scripts %}{% endblock %}
+    {% block moreheader %}{% endblock %}
+    <meta name="google-site-verification" content="uJHqQ-D8RgAk54PeViUBKzdBIZkKQDm5c-Ym6VGT0NI"/>
 </head>
 <body>
 
 <div class="container" style="background:white; padding:0px">
-  <div style="float: left; margin: 4px; color: red">
-      Site in alpha testing mode!
-  </div>
-  <div style="float: right; margin: 4px; text-align: right">
-      {{ language_choice_form.language }}<br />
-      Register for more languages
-  </div>
-  <div style="text-align: center">
-      <h1 style="font-size: 50pt">World Incentive</h1>
-  </div>
-  <div class="row" style="margin:0px; padding:0">
-    <nav>
-      <div class="navbar-collapse navbar-default mynavbar" style="padding:0px">
-        <div class="navbar-header">
-          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
-            <span class="sr-only">Toggle navigation</span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-          </button>
-        </div>
-        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1" style="padding-left:15px">
-          <ul class="nav navbar-nav">
-            <li><a href="{% url 'mainpage' %}">Home</a></li>
-            <li><a href="{% url 'initiative:list' %}{% if user_languages != '' %}?lang={{ user_languages }}{% endif %}">Initiatives</a></li>
-          {% if is_initiatives_list %}
-            <li class="dropdown" id="filterDropdownMenuButton">
-                <a href="#"
-                   class="dropdown-toggle"
-                   data-toggle="dropdown"
-                   aria-haspopup="true"
-                   aria-expanded="false"
-                   {% if categories %}style="color: red"{% endif %}
-                >Filter <b class="caret"></b></a>
-                <div class="dropdown-menu" aria-labelledby="filterDropdownMenuButton" onclick="event.stopPropagation()">
-                    {% include 'initiative/cats-filter.html' %}
+    <div class="row">
+        <!-- Wincept Top -->
+        <ins class="adsbygoogle"
+             style="display:block"
+             data-ad-client="ca-pub-7441925053494916"
+             data-ad-slot="1871024605"
+             data-ad-format="auto"
+             data-full-width-responsive="true"></ins>
+        <script>
+            (adsbygoogle = window.adsbygoogle || []).push({});
+        </script>
+    </div>
+    <div style="float: right; margin: 4px; text-align: right">
+        {{ language_choice_form.language }}<br/>
+        Register for more languages
+    </div>
+    <div style="text-align: center">
+        <h1 style="font-size: 50pt">World Incentive</h1>
+    </div>
+    <div class="row" style="margin:0px; padding:0">
+        <nav>
+            <div class="navbar-collapse navbar-default mynavbar" style="padding:0px">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse"
+                            data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
                 </div>
-            </li>
-          {% endif %}
-          {% if not user.is_anonymous %}
-            <li><a href="#" onclick="return ajax_create_initiative_prompt('{% url 'initiative:create-prompt' %}');">Add initiative</a></li>
-          {% endif %}
-            <!--li><a href="/blog/" target="_blank">Blog</a></li-->
-          </ul>
-          <ul class="nav navbar-nav navbar-right">
-            {% if user.is_authenticated %}
-            <li><a href="{% url 'user:account' %}">Account</a></li>
-            <li><a href="{% url 'logout' %}">Log out</a></li>
-            {% else %}
-            <li><a href="{% url 'login' %}">Log in</a></li>
-            <li><a href="{% url 'user:register' %}">Sign up</a></li>
-            {% endif %}
-          </ul>
-        </div>
-      </div>
-    </nav>
-  </div>
-  <div style="margin-left:15px; margin-right:15px">
-    {% bootstrap_messages %}
-    <h2>{% block header %}{% endblock %}</h2>
-    {% block content %}{% endblock %}
-  </div>
+                <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1" style="padding-left:15px">
+                    <ul class="nav navbar-nav">
+                        <li><a href="{% url 'mainpage' %}">Home</a></li>
+                        <li><a href="
+
+                                {% url 'initiative:list' %}{% if user_languages != '' %}?lang={{ user_languages }}{% endif %}">Initiatives</a>
+                        </li>
+                        {% if is_initiatives_list %}
+                            <li class="dropdown" id="filterDropdownMenuButton">
+                                <a href="#"
+                                   class="dropdown-toggle"
+                                   data-toggle="dropdown"
+                                   aria-haspopup="true"
+                                   aria-expanded="false"
+                                   {% if categories %}style="color: red"{% endif %}
+                                >Filter <b class="caret"></b></a>
+                                <div class="dropdown-menu" aria-labelledby="filterDropdownMenuButton"
+                                     onclick="event.stopPropagation()">
+                                    {% include 'initiative/cats-filter.html' %}
+                                </div>
+                            </li>
+                        {% endif %}
+                        {% if not user.is_anonymous %}
+                            <li><a href="#"
+                                   onclick="return ajax_create_initiative_prompt('{% url 'initiative:create-prompt' %}');">Add
+                                initiative</a></li>
+                        {% endif %}
+                        <!--li><a href="/blog/" target="_blank">Blog</a></li-->
+                    </ul>
+                    <ul class="nav navbar-nav navbar-right">
+                        {% if user.is_authenticated %}
+                            <li><a href="{% url 'user:account' %}">Account</a></li>
+                            <li><a href="{% url 'logout' %}">Log out</a></li>
+                        {% else %}
+                            <li><a href="{% url 'login' %}">Log in</a></li>
+                            <li><a href="{% url 'user:register' %}">Sign up</a></li>
+                        {% endif %}
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    </div>
+    <div style="margin-left:15px; margin-right:15px">
+        {% bootstrap_messages %}
+        <h2>{% block header %}{% endblock %}</h2>
+        {% block content %}{% endblock %}
+    </div>
 </div>
 
 {{ googlytics_code }}
