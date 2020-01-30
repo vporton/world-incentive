@@ -78,6 +78,7 @@
                         <li><a href="{% url 'mainpage' %}">Home</a></li>
                         <li><a href="
 
+
                                 {% url 'initiative:list' %}{% if user_languages != '' %}?lang={{ user_languages }}{% endif %}">Initiatives</a>
                         </li>
                         {% if is_initiatives_list %}
@@ -122,6 +123,8 @@
     </div>
 </div>
 
+<!-- Go to www.addthis.com/dashboard to customize your tools -->
+<script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-5e324928a5ef6084"></script>
 {{ googlytics_code }}
 </body>
 </html>
