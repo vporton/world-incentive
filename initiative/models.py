@@ -102,7 +102,7 @@ class InitiativeLanguage(models.Model):
         return reverse('initiative:view', args=[self.initiative.pk]) + '?lang=' + str(self.language)
 
     def __str__(self):
-        return self.language
+        return "[%s] %d" % (self.language, self.initiative.pk)
 
 
 class InitiativeVersion(models.Model):
