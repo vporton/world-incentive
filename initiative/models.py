@@ -101,6 +101,8 @@ class InitiativeLanguage(models.Model):
     def get_absolute_url(self):
         return reverse('initiative:view', args=[self.initiative.pk]) + '?lang=' + str(self.language)
 
+    def __str__(self):
+        return self.language
 
 class InitiativeVersion(models.Model):
     initiative_language = models.ForeignKey(InitiativeLanguage, on_delete=models.CASCADE, related_name='versions')
@@ -123,7 +125,7 @@ class InitiativeVersion(models.Model):
     spam = models.BooleanField(default=False)
 
     def __str__(self):
-        return self.title
+        return "[%s] %s" % (self.initiative_language, self.title)
 
     def __eq__(self, other):
         if other is None:
