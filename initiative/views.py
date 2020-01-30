@@ -17,10 +17,10 @@ from initiative.models import InitiativeLanguage, InitiativeVersion, Initiative,
 
 class BaseShowInitiativeView(View):
     def do_get(self, request, version, is_last_version, lang, lang_obj):
-        problem = version and mark_safe(bleach.clean(version.problem, tags=bleach.sanitizer.ALLOWED_TAGS + ['p', 'br']))
+        problem = version and mark_safe(bleach.clean(version.problem, tags=bleach.sanitizer.ALLOWED_TAGS + ['p', 'br', 'div']))
         solution = version and mark_safe(
             bleach.clean(version.solution, tags=bleach.sanitizer.ALLOWED_TAGS + ['p', 'br']))
-        outcome = version and mark_safe(bleach.clean(version.outcome, tags=bleach.sanitizer.ALLOWED_TAGS + ['p', 'br']))
+        outcome = version and mark_safe(bleach.clean(version.outcome, tags=bleach.sanitizer.ALLOWED_TAGS + ['p', 'br', 'div']))
 
         initiative = version.initiative_language.initiative
         old_versions = lang_obj and lang_obj.versions.order_by('-id')
