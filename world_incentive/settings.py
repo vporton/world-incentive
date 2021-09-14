@@ -100,13 +100,13 @@ WSGI_APPLICATION = 'world_incentive.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        'ENGINE': environ.get('DB_ENGINE', 'django.db.backends.sqlite3'),
+        'NAME': environ.get('DB_NAME', os.path.join(BASE_DIR, 'db.sqlite3')),
+        'PASSWORD': environ.get('DB_PASSWORD'),
     }
 }
 
-
-# Password validation
+# Password validation)
 # https://docs.djangoproject.com/en/2.2/ref/settings/#auth-password-validators
 
 AUTH_PASSWORD_VALIDATORS = [
