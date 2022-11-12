@@ -100,9 +100,10 @@ WSGI_APPLICATION = 'world_incentive.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': environ.get('DB_ENGINE', 'django.db.backends.sqlite3'),
-        'NAME': environ.get('DB_NAME', os.path.join(BASE_DIR, 'db.sqlite3')),
-        'PASSWORD': environ.get('DB_PASSWORD'),
+        # 'ENGINE': os.environ.get('DB_ENGINE', 'django.db.backends.sqlite3'),
+        'ENGINE': os.environ.get('DB_ENGINE', 'django.contrib.gis.db.backends.spatialite'),
+        'NAME': os.environ.get('DB_NAME', os.path.join(BASE_DIR, 'db.sqlite3')),
+        'PASSWORD': os.environ.get('DB_PASSWORD'),
     }
 }
 

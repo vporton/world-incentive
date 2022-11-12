@@ -83,7 +83,7 @@ class ListInitiativeView(View):
         lst = Initiative.objects.filter(languages__language__in=language_codes)
         if categories:
             lst = lst.filter(categories__pk__in=categories)
-        lst = lst.distinct('pk').order_by('-pk')
+        lst = lst.distinct().order_by('-pk')
 
         paginator = Paginator(lst, 25)
         page = request.GET.get('page')
