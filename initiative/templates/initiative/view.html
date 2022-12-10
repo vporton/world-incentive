@@ -107,7 +107,7 @@
     {% for old in old_versions %}
         <li>
             {{ version.created }} UTC -
-            <a href="{% url 'initiative:view-old' version.pk %}"
+            <a href="{% url 'initiative:view-old' old.pk %}"
                    lang="{{ version.initiative_language.language }}">{{ old }}</a>
             {% if old.spam %}<span style="color: red">(spam)</span>{% endif %}
             {% if old.pk == version.pk %}
