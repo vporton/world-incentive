@@ -23,7 +23,7 @@ class BaseShowInitiativeView(View):
         outcome = version and mark_safe(bleach.clean(version.outcome, tags=bleach.sanitizer.ALLOWED_TAGS + ['p', 'br', 'div', 'span']))
 
         initiative = version.initiative_language.initiative
-        old_versions = lang_obj and lang_obj.versions.filter(language=version.initiative_language).order_by('-id')
+        old_versions = lang_obj and lang_obj.versions.filter(initiative_language=version.initiative_language).order_by('-id')
 
         vote_form = VoteForm(request, initiative, version)
 
