@@ -16,7 +16,7 @@ class PlaceWidget(widgets.MultiWidget):
         countries = [('', '-')]
         try:
             countries += [(c.pk, c.name) for c in Country.objects.all().order_by('name')]
-        except OperationalError:  # not yet migrated (e.g. during migration)
+        except (ProgrammingError, OperationalError):  # not yet migrated (e.g. during migration)  # seems to use different error in SQLite and Postgres
             pass
         _widgets = (
             widgets.Select(choices=countries
