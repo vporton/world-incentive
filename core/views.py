@@ -60,7 +60,7 @@ class InitiativeSitemap(MySitemap):
     def items(self):
         # TODO:
         # return Initiative.objects.filter(spam=False)
-        return InitiativeLanguage.objects.filter()
+        return InitiativeLanguage.objects.filter().order_by('pk')
 
     def lastmod(self, obj):
         return obj.initiative.updated  # TODO: wrong date
@@ -70,7 +70,7 @@ class InitiativeVersionSitemap(MySitemap):
     priority = 0.3
 
     def items(self):
-        return InitiativeVersion.objects.filter(spam=False)
+        return InitiativeVersion.objects.filter(spam=False).order_by('pk')
 
     def lastmod(self, obj):
         return obj.created
@@ -80,4 +80,4 @@ class UserSitemap(MySitemap):
     priority = 0.5
 
     def items(self):
-        return User.objects.filter()
+        return User.objects.filter().order_by('pk')
