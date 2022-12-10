@@ -1,4 +1,4 @@
 ```sh
-sudo apt install libgdal-dev
+sudo apt install libgdal-dev postgis
 sudo apt install libsqlite3-mod-spatialite # optional
 ```
