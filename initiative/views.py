@@ -136,7 +136,7 @@ class EditInitiativeView(LoginRequiredMixin, View):
     def get(self, request, initiative_pk, language):
         initiative = get_object_or_404(Initiative, pk=initiative_pk)
         version = initiative.last_version(language)
-        form = InitiativeForm(instance=version, initial={'language': language})
+        form = InitiativeForm(instance=version, initial={'language': language, 'initiative': initiative_pk})
         return render(request, 'initiative/initiative-form.html',
                       {'form': form, 'title': _("Edit initiative"), 'button': _("Edit")})
 
