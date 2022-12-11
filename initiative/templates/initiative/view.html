@@ -31,9 +31,9 @@
                lang="{{ version.initiative_language.language }}">Go to the last version.</a></p>
     {% endif %}
 
-<section lang="{{ version.initiative_language.language }}">
+<section>
 
-    <section lang="{{ lang }}">
+    <section>
 
         <p><b>Place:</b>
             {% if initiative.place.country %}
@@ -63,17 +63,17 @@
     </section>
 
     <h3>Problem</h3>
-    <div lang="{{ lang }}">
+    <div lang="{{ version.initiative_language.language }}">
         {{ problem }}
     </div>
 
     <h3>Practical result</h3>
-    <div lang="{{ lang }}">
+    <div lang="{{ version.initiative_language.language }}">
         {{ outcome }}
     </div>
 
     <h3>Solution</h3>
-    <div lang="{{ lang }}">
+    <div lang="{{ version.initiative_language.language }}">
         {{ solution }}
     </div>
 </section>
