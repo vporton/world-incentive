@@ -1,5 +1,6 @@
 import bleach
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.syndication.views import Feed
 from django.core.paginator import Paginator
 from django.db import transaction
 from django.forms import HiddenInput
@@ -197,3 +198,22 @@ class AjaxVoteView(View):
             return HttpResponse("Bad voting pool.", status=400)  # Don't translate.
 
         return HttpResponse('ok')
+
+
+class InitiativesFeed(Feed):
+    title = "Political and other initiatives"
+    link = "/initiative/list"
+    description = "Updates on political and other initiatives presented at our wiki site."
+
+    def items(self):
+        return InitiativeLanguage.objects.select_related('initiative').all().order_by('-pk')[:60]
+
+    def item_title(self, item):
+        return item.title
+
+    def item_description(self, item):
+        return item.problem + item.solution + item.outcome
+
+    # item_link is only needed if NewsItem has no get_absolute_url method.
+    # def item_link(self, item):
+    #     return reverse('view', args=[item.pk])
