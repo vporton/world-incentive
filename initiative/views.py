@@ -1,3 +1,5 @@
+import itertools
+
 import bleach
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.syndication.views import Feed
@@ -209,7 +211,8 @@ class InitiativesFeed(Feed):
 
     def items(self):
         lst = InitiativeLanguage.objects.select_related('last_version').all().order_by('-pk')
-        return (i.last_version for i in lst if not i.last_version.spam)[:60]
+        lst = (i.last_version for i in lst if not i.last_version.spam)
+        return itertools.islice(lst, 60)
 
     def item_title(self, item):
         return item.title
