@@ -1,7 +1,7 @@
 {% extends "core/base.html" %}
 
 {% block title %}Initiative {{version.title}}{% endblock %}
-{% block header %}{{version.title}}{% endblock %}
+{% block header %}<h2 lang="{{ version.initiative_language.language }}">{{version.title}}</h2>{% endblock %}
 
 {% block scripts %}
 {{ vote_form.media }}

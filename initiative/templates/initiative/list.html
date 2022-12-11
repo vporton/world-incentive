@@ -1,7 +1,7 @@
 {% extends "core/base.html" %}
 
 {% block title %}Initiatives list{% endblock %}
-{% block header %}Initiatives list{% endblock %}
+{% block header %}<h2>Initiatives list</h2>{% endblock %}
 
 {% block moreheader %}
 <meta name="robots" content="noindex" />
@@ -13,7 +13,9 @@
     {% include 'core/paginator_template.html' %}
     <ul>
         {% for i in versions %}
-        <li><a href="{% url 'initiative:view' i.initiative_language.initiative.pk %}?lang={{ i.initiative_language.language }}">{{ i.title }}</a>
+        <li><a href="{% url 'initiative:view' i.initiative_language.initiative.pk %}?lang={{ i.initiative_language.language }}"
+               lang="{{ i.initiative_language.language }}" hreflang="{{ i.initiative_language.language }}"
+        >{{ i.title }}</a>
             {% if i.spam %}<span style="color: red">(spam)</span>{% endif %}</li>
         {% endfor %}
     </ul>
