@@ -33,6 +33,7 @@
         {% block css %}{% endblock %}
     </style>
     <script src="{% static 'js/main.js' %}"></script>
+    <link rel="alternate" type="application/rss+xml" title="Political and other initiatives" href="{% url 'initiative:feed' %}" />
     {% block scripts %}{% endblock %}
     {% block moreheader %}{% endblock %}
     <meta name="google-site-verification" content="uJHqQ-D8RgAk54PeViUBKzdBIZkKQDm5c-Ym6VGT0NI"/>
