@@ -62,18 +62,20 @@
 
     </section>
 
-    <h3 lang="{{ lang }}">Problem</h3>
+    <h3>Problem</h3>
+    <div lang="{{ lang }}">
+        {{ problem }}
+    </div>
 
-    {{ problem }}
+    <h3>Practical result</h3>
+    <div lang="{{ lang }}">
+        {{ outcome }}
+    </div>
 
-    <h3 lang="{{ lang }}">Practical result</h3>
-
-    {{ outcome }}
-
-    <h3 lang="{{ lang }}">Solution</h3>
-
-    {{ solution }}
-
+    <h3>Solution</h3>
+    <div lang="{{ lang }}">
+        {{ solution }}
+    </div>
 </section>
 
 {% else  %}
