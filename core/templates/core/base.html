@@ -43,11 +43,8 @@
 
 <div class="container" style="background:white; padding:0px">
     <header>
-        <div style="float: right; margin: 4px; text-align: right">
-            {{ language_choice_form.language }}<br/>
-            Register for more languages
-        </div>
         <div style="text-align: center">
+            <img src="{% static 'images/parliament.jpg' %}" width="640" height="426" alt="A parliament"/>
             <h1 style="font-size: 50pt">World Incentive</h1>
         </div>
         <div class="row" style="margin:0px; padding:0">
@@ -65,10 +62,7 @@
                     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1" style="padding-left:15px">
                         <ul class="nav navbar-nav">
                             <li><a href="{% url 'mainpage' %}">Home</a></li>
-                            <li><a href="
-
-
-                                    {% url 'initiative:list' %}{% if user_languages != '' %}?lang={{ user_languages }}{% endif %}">Initiatives</a>
+                            <li><a href="{% url 'initiative:list' %}{% if user_languages != '' %}?lang={{ user_languages }}{% endif %}">Initiatives</a>
                             </li>
                             {% if is_initiatives_list %}
                                 <li class="dropdown" id="filterDropdownMenuButton">
@@ -91,8 +85,11 @@
                                     initiative</a></li>
                             {% endif %}
                             <!--li><a href="/blog/" target="_blank">Blog</a></li-->
+</li>
                         </ul>
                         <ul class="nav navbar-nav navbar-right">
+                            <li style="text-align: center">{{ language_choice_form.language }}<br/>
+                                <span><a href="{% url 'user:register' %}">Register</a></span> for more languages</li>
                             {% if user.is_authenticated %}
                                 <li><a href="{% url 'user:account' %}">Account</a></li>
                                 <li><a href="{% url 'logout' %}">Log out</a></li>
