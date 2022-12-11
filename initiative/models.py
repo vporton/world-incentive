@@ -128,8 +128,11 @@ class InitiativeVersion(models.Model):
                                                       blank=True)
     spam = models.BooleanField(default=False)
 
-    def __str__(self):
+    def __repr__(self):
         return "[%s] %s" % (self.initiative_language, self.title)
+
+    def __str__(self):
+        return self.title
 
     def __eq__(self, other):
         if other is None:
