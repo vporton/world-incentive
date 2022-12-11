@@ -19,7 +19,7 @@ from initiative.models import InitiativeLanguage, InitiativeVersion, Initiative,
 class BaseShowInitiativeView(View):
     def do_get(self, request, version, is_last_version, lang, lang_obj):
         if version is None:
-            return Http404("No initiative in this language %s." % lang)
+            raise Http404("No initiative in this language %s." % lang)
         problem = version and mark_safe(bleach.clean(version.problem, tags=bleach.sanitizer.ALLOWED_TAGS + ['p', 'br', 'div', 'span']))
         solution = version and mark_safe(
             bleach.clean(version.solution, tags=bleach.sanitizer.ALLOWED_TAGS + ['p', 'br', 'div', 'span']))
