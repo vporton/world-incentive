@@ -5,6 +5,11 @@
 
 {% block scripts %}
 {{ vote_form.media }}
+{% for lang in initiative.languages.all %}
+    {% if lang != version.initiative_language %}
+    <link rel="alternate" href="{% url 'initiative:view' initiative.pk %}?lang={{ lang.language }}" hreflang="{{ lang.language }}"/>
+    {% endif %}
+{% endfor %}
 {% endblock %}
 
 {% block moreheader %}
