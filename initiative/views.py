@@ -206,7 +206,8 @@ class InitiativesFeed(Feed):
     description = "Updates on political and other initiatives presented at our wiki site."
 
     def items(self):
-        return InitiativeLanguage.objects.select_related('last_version').all().order_by('-pk')[:60]
+        lst = InitiativeLanguage.objects.select_related('last_version').all().order_by('-pk')[:60]
+        return (i.last_version for i in lst)
 
     def item_title(self, item):
         return item.title
