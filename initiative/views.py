@@ -4,7 +4,7 @@ from django.contrib.syndication.views import Feed
 from django.core.paginator import Paginator
 from django.db import transaction
 from django.forms import HiddenInput
-from django.http import HttpResponse
+from django.http import HttpResponse, Http404
 from django.shortcuts import render, get_object_or_404, redirect
 from django.urls import reverse
 from django.utils.safestring import mark_safe
@@ -18,6 +18,8 @@ from initiative.models import InitiativeLanguage, InitiativeVersion, Initiative,
 
 class BaseShowInitiativeView(View):
     def do_get(self, request, version, is_last_version, lang, lang_obj):
+        if version is None:
+            return Http404("No initiative in this language %s." % lang)
         problem = version and mark_safe(bleach.clean(version.problem, tags=bleach.sanitizer.ALLOWED_TAGS + ['p', 'br', 'div', 'span']))
         solution = version and mark_safe(
             bleach.clean(version.solution, tags=bleach.sanitizer.ALLOWED_TAGS + ['p', 'br', 'div', 'span']))
