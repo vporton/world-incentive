@@ -222,4 +222,4 @@ class InitiativesFeed(Feed):
 
     # item_link is only needed if NewsItem has no get_absolute_url method.
     def item_link(self, item):
-        return reverse('view', args=[item.initiative_language])
+        return item.initiative_language.get_absolute_url()
