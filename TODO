@@ -1,6 +1,6 @@
 * AMP pages.
 
-* Displaying an initiative in non-existent language lang=ca causes error 500.
+* Error pages.
 
 * "Add initiative" when editing another initiative creates an UI glitch.
 
