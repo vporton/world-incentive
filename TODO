@@ -2,6 +2,8 @@
 
 * Error pages.
 
+* `noindex` and/or canonical for /accounts/login/
+
 * "Add initiative" when editing another initiative creates an UI glitch.
 
 * RSS.
