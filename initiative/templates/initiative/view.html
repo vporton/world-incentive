@@ -19,7 +19,7 @@
               href="{{ settings.SITE_URL }}{% url 'initiative:view' initiative.pk %}?lang={{ version.initiative_language.language }}" />
     {% else %}
         <link rel="canonical"
-              href="{{ settings.SITE_URL }}{% url 'initiative:view-old' version.pk %}?lang={{ version.initiative_language.language }}" />
+              href="{{ settings.SITE_URL }}{% url 'initiative:view-old' version.pk %}" />
     {% endif %}
 {% endblock %}
 
