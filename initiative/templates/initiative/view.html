@@ -12,11 +12,14 @@
 
 {% block moreheader %}
     {% if version.spam %}
-        <meta name="robots" content="noindex" />
+        <meta name="robots" content="noindex,nofollow" />
     {% endif %}
     {% if is_last_version %}
         <link rel="canonical"
               href="{{ settings.SITE_URL }}{% url 'initiative:view' initiative.pk %}?lang={{ version.initiative_language.language }}" />
+    {% else %}
+        <link rel="canonical"
+              href="{{ settings.SITE_URL }}{% url 'initiative:view-old' version.pk %}?lang={{ version.initiative_language.language }}" />
     {% endif %}
 {% endblock %}
 
