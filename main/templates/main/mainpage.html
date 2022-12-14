@@ -5,7 +5,27 @@
 
 {% block content %}
 
-<p>This is a wiki site to publish political and other initiatives throughout the world.
+<p>This is a wiki site to publish political and other <a href="{% url 'initiative:list' %}">initiatives and petitions</a> throughout the world.
 It supports all world languages.</p>
+
+<p>This site has unique features:</p>
+
+<ul>
+    <li>Everybody can edit a petition.</li>
+    <li>Community-based moderation, only other users like you can decide to remove an initiative.</li>
+    <li>A petition can be translated into other languages. We support at least 8115 languages.</li>
+    <li>Up and down votes for every petition.</li>
+    <li>(TBD) If a version (that is an edition) of a petition is marked spam, the spam votes will be removed.</li>
+    <li>(Currently non-functional) Petitions can be world-wide or bound to a country, region, city, or a district.</li>
+</ul>
+
+<p>This site is a remake of Putin's site <a href="https://www.roi.ru/" rel="nofollow">РОИ</a>.
+    I decided to create my own site after РОИ rejected publishing several of my initiatives (some by political and
+    some by silly formal reasons).</p>
+
+<p>The Putin's site РОИ has an almost unattainable lower bound for the number of votes making the initiative
+    <q>considered</q>. That constitutes Putin's fake democracy. But the Western <q>democracies</q> didn't create
+    public sites like РОИ at all. Putin pretends to have a democracy, the West does not even pretend. If to choose
+    live in Russia or in the West, I would choose West because I don't like fakes.</p>
 
 {% endblock %}
