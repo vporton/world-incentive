@@ -1,3 +1,5 @@
+* Count also votes for each version separately, and subtract/add them when (un)marked spam.
+
 * Sitemaps are missing XML namespace.
 
 * AMP pages.
