@@ -3,6 +3,11 @@
 {% block title %}World Initiative{% endblock %}
 {% block header %}<h2>World Initiative</h2>{% endblock %}
 
+{% block scripts %}
+<meta name="description" content="Publish political and other initiatives and petitions around the world in 8115 languages.
+User-editable."/>
+{% endblock %}
+
 {% block content %}
 
 <p>This is a wiki site to publish political and other <a href="{% url 'initiative:list' %}">initiatives and petitions</a> throughout the world.
@@ -24,8 +29,9 @@ It supports all world languages.</p>
     some by silly formal reasons).</p>
 
 <p>The Putin's site РОИ has an almost unattainable lower bound for the number of votes making the initiative
-    <q>considered</q>. That constitutes Putin's fake democracy. But the Western <q>democracies</q> didn't create
-    public sites like РОИ at all. Putin pretends to have a democracy, the West does not even pretend. If to choose
-    live in Russia or in the West, I would choose West because I don't like fakes.</p>
+    <q>considered</q>. That constitutes Putin's fake democracy. British petition site is better at it:
+    they consider petitions in the government after just 10000 votes. Putin pretends to have a democracy,
+    the US even does not even pretend: they seem not to have such a site at all. If to choose
+    live in Russia or in the US, I would choose the US because I don't like fakes.</p>
 
 {% endblock %}
