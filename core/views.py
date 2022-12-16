@@ -72,6 +72,7 @@ class InitiativeVersionSitemap(MySitemap):
     def items(self):
         items = InitiativeVersion.objects.filter(spam=False).order_by('pk')
         items = (item for item in items if item.initiative_language.last_version != item)  # they in another sitemap
+        items = list(items)  # to have `len()`
         return items
 
     def lastmod(self, obj):
