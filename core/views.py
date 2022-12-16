@@ -70,7 +70,9 @@ class InitiativeVersionSitemap(MySitemap):
     priority = 0.3
 
     def items(self):
-        return InitiativeVersion.objects.filter(spam=False).order_by('pk')
+        items = InitiativeVersion.objects.filter(spam=False).order_by('pk')
+        items = (item for item in items if item.initiative_language.last_version != item)  # they in another sitemap
+        return items
 
     def lastmod(self, obj):
         return obj.created
