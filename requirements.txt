@@ -1,6 +1,6 @@
 psycopg2
 bleach
-django==3.1.8
+django==3.2.24
 django-composite-field
 django-ordered-model
 git+https://github.com/vporton/django-language-field.git
